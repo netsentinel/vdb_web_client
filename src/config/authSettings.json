@@ -3,5 +3,6 @@
     "passwordMustContainLowerCase":false,
     "passwordMustContainUpperCase":false,
     "passwordMinLength":6,
-    "passwordMaxLength":128
+    "passwordMaxLength":128,
+    "emailMaxLength":50
 }

@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.83c931f2.css",
+    "main.js": "/static/js/main.f3c3f21c.js",
+    "static/media/RobotoFlex.woff2": "/static/media/RobotoFlex.095578d64a792e38db36.woff2",
+    "index.html": "/index.html",
+    "main.83c931f2.css.map": "/static/css/main.83c931f2.css.map",
+    "main.f3c3f21c.js.map": "/static/js/main.f3c3f21c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.83c931f2.css",
+    "static/js/main.f3c3f21c.js"
+  ]
+}

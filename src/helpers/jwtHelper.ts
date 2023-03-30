@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-import jwtInfo from "src/models/jwtInfo";
+import JwtInfo from "src/models/Common/IJwtInfo";
 
 
 
@@ -9,7 +9,7 @@ export default class jwtHelper {
 
         var decodedJwt;
         try {
-            decodedJwt = jwtDecode<jwtInfo>(jwt);
+            decodedJwt = jwtDecode<JwtInfo>(jwt);
         } catch {
             return false;
         }
@@ -19,6 +19,6 @@ export default class jwtHelper {
     }
 
     public static Decode = (jwt:string) =>{
-        return jwtDecode<jwtInfo>(jwt); 
+        return jwtDecode<JwtInfo>(jwt); 
     }
 }

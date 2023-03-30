@@ -1,6 +1,5 @@
 import React from "react";
 import cls from "./Header.module.css";
-import LoginButton from '../../components/auth/LoginButton/LoginButton';
 import { authHelper } from "src/helpers/authHelper";
 import { NavLink } from "react-router-dom";
 
@@ -21,9 +20,6 @@ const Header = () => {
                     <NavLink to="/services" className={[cls.appHeaderPart, cls.appHeaderText].join(' ')}>
                         services
                     </NavLink>
-                </span>
-                <span  className={[cls.appHeaderPart, cls.appHeaderText].join(' ')} style={{ minWidth: "15vw" }} >
-                        <LoginButton submitCallback={authHelper.proceedAuth} />
                 </span>
             </nav>
         </header>
