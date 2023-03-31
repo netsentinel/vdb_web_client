@@ -9,16 +9,16 @@ const Header = () => {
             <nav className={[cls.appHeaderRow, "verticalCenter"].join(' ')}>
                 <span>
                     <NavLink to="/" className={[cls.appHeaderTitle, cls.appHeaderPart, cls.appHeaderText].join(' ')}>
-                        bruhcontent.ru
+                        vdb
                     </NavLink>
-                    <NavLink to="/news" className={[cls.appHeaderPart, cls.appHeaderText].join(' ')}>
-                        news
+                    <NavLink to="/download" className={[cls.appHeaderPart, cls.appHeaderText].join(' ')}>
+                        download
                     </NavLink>
-                    <NavLink to="/blog" className={[cls.appHeaderPart, cls.appHeaderText].join(' ')}>
-                        blog
+                    <NavLink to="/auth" className={[cls.appHeaderPart, cls.appHeaderText].join(' ')}>
+                        sign up/in
                     </NavLink>
-                    <NavLink to="/services" className={[cls.appHeaderPart, cls.appHeaderText].join(' ')}>
-                        services
+                    <NavLink to="/support" className={[cls.appHeaderPart, cls.appHeaderText].join(' ')}>
+                        support us
                     </NavLink>
                 </span>
             </nav>

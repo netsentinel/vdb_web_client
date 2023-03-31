@@ -1,24 +1,19 @@
 import jwtDecode from "jwt-decode";
-import JwtInfo from "src/models/Common/IJwtInfo";
-
-
+import IJwtResponse from "src/models/Auth/IJwtResponse";
 
 export default class jwtHelper {
-    public static Validate = (jwt: string) => {
-        if (!jwt) return false;
+    public static Validate = (jwt: string) : IJwtResponse | null => {
+        if (!jwt) return null;
 
-        var decodedJwt;
+        var decodedJwt : IJwtResponse;
         try {
-            decodedJwt = jwtDecode<JwtInfo>(jwt);
+            decodedJwt = jwtDecode<IJwtResponse>(jwt);
         } catch {
-            return false;
+            return null;
         }
-        if (decodedJwt.exp && (decodedJwt.exp! < Date.now())) return false;
+        
+        if (decodedJwt.exp && (decodedJwt.exp! < Date.now())) return null;
 
-        return true;        
-    }
-
-    public static Decode = (jwt:string) =>{
-        return jwtDecode<JwtInfo>(jwt); 
+        return decodedJwt;        
     }
 }

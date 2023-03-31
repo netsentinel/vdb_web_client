@@ -6,7 +6,7 @@ const Main = () => {
     return (
         <div role={"main"} className={classes.appMain}>
             <Routes>
-
+                <Route path="download" element={ <span>download</span>} />
             </Routes>
         </div>
     );
