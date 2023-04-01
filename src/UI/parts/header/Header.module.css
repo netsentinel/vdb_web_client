@@ -19,11 +19,11 @@
 .appHeaderPart{
     box-sizing: border-box;
     display: inline-flex;
-    padding: 0px 20px;
+    padding: 0px calc(10px + 1vw);
 }
 .appHeaderText{
     font-family: "Roboto";
-    font-size: calc(1vh + 24px);
+    font-size: calc(2vh + 20px);
     font-weight: 400;
     color:rgb(75, 75, 75);
     text-decoration: none;

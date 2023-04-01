@@ -1,5 +1,6 @@
 import endpoints from "../config/endpoints.json"
 import { urlJoin } from 'url-join-ts';
+import envHelper from './envHelper';
 
 
 /* Данный класс генерирует URLы для преопредленных
@@ -7,7 +8,9 @@ import { urlJoin } from 'url-join-ts';
  */
 export default class urlHelper {
     public static getHostUrl = () =>
-        window.location.protocol + '//' + window.location.host;
+        envHelper.usePredefinedHost()
+            ? endpoints.backend.host
+            : window.location.protocol + '//' + window.location.host;
 
     public static getApiBaseUrl = () => urlJoin(
         this.getHostUrl(),
