@@ -1,7 +1,7 @@
 export default interface IUserInfo {
-    id: number;
-    isAdmin: boolean;
-    email: string;
-    isEmailConfirmed: boolean;
-    payedUntilUtc: string;
+    Id: number;
+    IsAdmin: boolean;
+    Email: string;
+    IsEmailConfirmed: boolean;
+    PayedUntilUtc: string;
 }

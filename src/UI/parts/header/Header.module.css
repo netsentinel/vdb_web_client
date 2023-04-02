@@ -12,18 +12,19 @@
 }
 
 .appHeaderRow{
-    display: inline-flex;
+    display: flex;
     width: 100%;
-    justify-content:space-between;
+    justify-content: center;
 }
 .appHeaderPart{
     box-sizing: border-box;
-    display: inline-flex;
+    display: flex;
     padding: 0px calc(10px + 1vw);
 }
 .appHeaderText{
+    white-space: pre;
     font-family: "Roboto";
-    font-size: calc(2vh + 20px);
+    font-size: calc(1vw + 20px);
     font-weight: 400;
     color:rgb(75, 75, 75);
     text-decoration: none;

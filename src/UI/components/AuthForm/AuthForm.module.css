@@ -1,5 +1,7 @@
 .AuthWrapper{
     width: 100%;
+    display: flexbox;
+    margin-block-start: max(10vh, 10px);
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -37,14 +39,23 @@
     max-width: 300px;
 }
 
-.AuthErrorBox{
-    border: 1px solid red;
+.AuthMessageBox{
     border-radius: 5px;
-    background-color: lightcoral;
     display: flexbox;
     font-size: calc(.75vh + 12px);
     padding: 10px;
     width: 98%;
     max-width: 300px;
     font: normal;
+}
+
+.AuthErrorBox{
+    border: 1px solid red;
+    border-radius: 5px;
+    background-color: lightcoral;
+}
+.AuthCommonBox{
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: greenyellow;
 }

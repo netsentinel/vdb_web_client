@@ -5,17 +5,22 @@ import envHelper from '../../../helpers/envHelper';
 import { authHelper } from '../../../helpers/authHelper';
 import RegistrationRequest from "src/models/Auth/RegistrationRequest";
 import IUserInfoFromJwt from '../../../models/Auth/IUserInfoFromJwt';
+import { useNavigate } from "react-router-dom";
 
 const AuthForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [submitEnabled, setSubmitEnabled] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
+    const [commonMessage, setCommonMessage] = useState("");
+    const navigate = useNavigate();
+
 
     const onSubmit = async () => {
         setSubmitEnabled(false);
         setTimeout(() => setSubmitEnabled(true), 5000);
         setErrorMessage("");
+        setCommonMessage("");
         console.info(`Submitting: ${email}:${password}`);
 
         let result: IUserInfoFromJwt | undefined;
@@ -29,26 +34,32 @@ const AuthForm = () => {
         if (!result) {
             if (authHelper.lastStatus) {
                 let status = authHelper.lastStatus;
+                let selectedError: string;
 
                 if (status === 400)
-                    setErrorMessage("Problem on client side. Please reload window.");
+                    selectedError = "Problem on client side. Please reload window.";
                 else if (status === 401)
-                    setErrorMessage("Wrong password.");
+                    selectedError = "Wrong password.";
                 else if (status === 404)
-                    setErrorMessage("Server was unable to find existing account and refused to create new one.");
+                    selectedError = "Server was unable to find existing account and refused to create new one.";
                 else if (status === 409)
-                    setErrorMessage("Server has found existing account but refused to authorize it.");
+                    selectedError = "Server has found existing account but refused to authorize it.";
                 else if (status >= 500)
-                    setErrorMessage("Problem on server side. Please try later.");
+                    selectedError = "Problem on server side. Please try later.";
                 else {
-                    setErrorMessage("Unable to send data to server.")
+                    selectedError = "Unable to send data to server.";
                 }
 
-                setErrorMessage(errorMessage + ` Error code: HTTP_${status}.`);
+                setErrorMessage(selectedError + `\nError code: HTTP_${status}.`);
             }
             else {
                 setErrorMessage("Unable to send data to server.")
             }
+        }
+        else {
+            setCommonMessage("OK...");
+            console.info("Redirecting to personal...");
+            navigate("/personal");
         }
 
         setSubmitEnabled(true);
@@ -61,11 +72,13 @@ const AuthForm = () => {
             <br />
             <input
                 type={"email"}
+                placeholder="email"
                 value={email} onChange={(e) => setEmail(e.target.value)}
                 className={[cls.AuthWrapperElement, cls.AuthInput, cls.AuthText].join(' ')} />
             <br />
             <input
                 type={"password"}
+                placeholder="password"
                 value={password} onChange={(e) => setPassword(e.target.value)}
                 className={[cls.AuthWrapperElement, cls.AuthInput, cls.AuthText].join(' ')} />
             <br />
@@ -76,8 +89,15 @@ const AuthForm = () => {
             <br />
             {errorMessage
                 ? <div
-                    className={[cls.AuthWrapperElement, cls.AuthText, cls.AuthErrorBox].join(' ')}
+                    className={[cls.AuthWrapperElement, cls.AuthText, cls.AuthMessageBox, cls.AuthErrorBox].join(' ')}
                 >{errorMessage}</div>
+                : <span />
+            }
+            <br />
+            {commonMessage
+                ? <div
+                    className={[cls.AuthWrapperElement, cls.AuthText, cls.AuthMessageBox, cls.AuthCommonBox].join(' ')}
+                >{commonMessage}</div>
                 : <span />
             }
         </span>

@@ -18,7 +18,7 @@ export class authHelper {
                 console.info("Loaded access token from local storage. Validating...");
                 var parsed = authHelper.parseAccessJwtAndUpdateContext(jwt);
                 if (parsed) {
-                    if (parsed.exp > Date.now()) {  // access token is valid
+                    if (parsed.exp * 1000 > Date.now()) {  // access token is valid
                         console.info("Successfully validated access token from local storage.");
                         return;
                     }
@@ -31,6 +31,10 @@ export class authHelper {
                     console.info("Access token from local storage is invalid. Refreshing...");
                     await authHelper.performRefreshAsync(); // try to refresh
                 }
+            }
+            else { // no access token
+                console.info("Access was not found. Refreshing...");
+                await authHelper.performRefreshAsync(); // try to refresh
             }
         }
         else {
@@ -57,6 +61,8 @@ export class authHelper {
         console.info("Setting current user...");
         globalContext.currentUser = user;
         globalContext.accessJwtExpires = user.exp;
+        console.info(`Current user: ${globalContext.currentUser.Email}.\n` +
+            `Access JWT expires: ${new Date(user.exp * 1000)}.`)
 
         return user;
     }
@@ -83,33 +89,95 @@ export class authHelper {
     public static lastStatus: number;
     public static performLoginAsync = async (request: LoginRequest) => {
         console.info("Trying to log in...");
+        this.lastStatus = 0;
+
         try {
-            return this.parseResponseAndUpdateContext(
-                await axios.post<IJwtAuthResponse>(urlHelper.getAuthUrl(), request));
-        } catch (e) {
-            console.error(e);
-            this.lastStatus = 0;
+            var response = await axios.post<IJwtAuthResponse>(urlHelper.getAuthUrl(), request);
+        } catch (e: any) {
+            console.error("Failed to login.");
+            if (e["response"]["status"]) {
+                this.lastStatus = e["response"]["status"];
+            }
+            return;
+        }
+
+        if (response) {
+            if (response.status) {
+                this.lastStatus = response.status;
+            }
+            else {
+                this.lastStatus = 0;
+            }
+            try {
+                return this.parseResponseAndUpdateContext(response);
+            }
+            catch (e) {
+                console.error(e);
+                return;
+            }
         }
     }
 
     public static performRegistrationAsync = async (request: RegistrationRequest, redirectToLogin = true) => {
         console.info("Trying to register user...");
         console.info(`Redirect to login in case of existing user is ${redirectToLogin ? "enabled" : "disabled"}.`);
+        this.lastStatus = 0;
+
         try {
-            return this.parseResponseAndUpdateContext(
-                await axios.put<IJwtAuthResponse>(urlHelper.getAuthUrl() + `?redirectToLogin=${redirectToLogin}`, request));
-        } catch {
-            this.lastStatus = 0;
+            var response = await axios.put<IJwtAuthResponse>(urlHelper.getAuthUrl() + `?redirectToLogin=${redirectToLogin}`, request);
+        } catch (e: any) {
+            console.error("Failed to register.");
+            if (e["response"]["status"]) {
+                this.lastStatus = e["response"]["status"];
+            }
+            return;
+        }
+
+        if (response) {
+            if (response.status) {
+                this.lastStatus = response.status;
+            }
+            else {
+                this.lastStatus = 0;
+            }
+            try {
+                return this.parseResponseAndUpdateContext(response);
+            }
+            catch (e) {
+                console.error(e);
+                return;
+            }
         }
     }
 
     public static performRefreshAsync = async () => {
         console.info("Trying to refresh tokens...");
+        this.lastStatus = 0;
+
         try {
-            return this.parseResponseAndUpdateContext(
-                await axios.patch<IJwtAuthResponse>(urlHelper.getAuthUrl()));
-        } catch {
-            this.lastStatus = 0;
+            var response = await axios.patch<IJwtAuthResponse>(urlHelper.getAuthUrl());
+        } catch (e: any) {
+            console.error("Failed to refresh tokens.");
+            if (e["response"]["status"]) {
+                this.lastStatus = e["response"]["status"];
+            }
+            return;
+        }
+
+        if (response) {
+            if (response.status) {
+                this.lastStatus = response.status;
+            }
+            else {
+                this.lastStatus = 0;
+            }
+            try {
+                return this.parseResponseAndUpdateContext(response);
+            }
+            catch (e) {
+                console.error(e);
+                return;
+            }
         }
     }
 }
