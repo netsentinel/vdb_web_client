@@ -2,10 +2,10 @@ import { Hash } from "crypto";
 import React, { useState } from "react";
 import cls from "./AuthForm.module.css";
 import envHelper from '../../../helpers/envHelper';
-import { authHelper } from '../../../helpers/authHelper';
 import RegistrationRequest from "src/models/Auth/RegistrationRequest";
 import IUserInfoFromJwt from '../../../models/Auth/IUserInfoFromJwt';
 import { useNavigate } from "react-router-dom";
+import AuthHelper from '../../../helpers/authHelper';
 
 const AuthForm = () => {
     const [email, setEmail] = useState("");
@@ -18,22 +18,19 @@ const AuthForm = () => {
 
     const onSubmit = async () => {
         setSubmitEnabled(false);
-        setTimeout(() => setSubmitEnabled(true), 5000);
+        setTimeout(() => setSubmitEnabled(true), 10000);
         setErrorMessage("");
         setCommonMessage("");
         console.info(`Submitting: ${email}:${password}`);
 
-        let result: IUserInfoFromJwt | undefined;
+        let result = false;
         try {
-            result = await authHelper.performRegistrationAsync(new RegistrationRequest(email, password), true);
+            result = await AuthHelper.PerformRegistrationAsync(new RegistrationRequest(email, password), true);
         } catch { }
 
-        console.info(`Received object from server:`);
-        console.info(result);
-
         if (!result) {
-            if (authHelper.lastStatus) {
-                let status = authHelper.lastStatus;
+            if (AuthHelper.lastStatus) {
+                let status = AuthHelper.lastStatus;
                 let selectedError: string;
 
                 if (status === 400)

@@ -1,9 +1,12 @@
 .SupportInfoWrapper {
     width: 100%;
-    display: flexbox;
+    margin: auto;
+    max-width: 800px;
+    display: flex;
     margin-block-start: max(2vh, 10px);
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: flex-start;
+    flex-direction: column;
 }
 
 .SupportInfoBlock {
@@ -14,9 +17,10 @@
     padding: 5px;
 
     display: flex;
-    margin: auto;
-    max-width: 800px;
-    align-self: center;
+    width: 100%;
+    margin: 0;
+    align-self: flex-start;
+    justify-content: space-between;
 }
 
 .SupportInfoCrypto {
@@ -25,12 +29,17 @@
 
 .SupportInfoWallet {
     word-wrap: break-word;
-    display: block;
-    padding: 0 1vw;
+    display: flex;
+    flex-direction: column;
+    padding: 1vh 0;
     margin: 0;
     margin: 0;
     box-sizing: border-box;
-    width: 50%;
+    width: 47%;
+    max-width: 47%;
+    overflow-wrap:break-word;
+    overflow-x: hidden;
+    align-self: flex-start;
 }
 
 .QrHideButton {
@@ -38,12 +47,7 @@
     font-weight: bolder;
     padding: 1vh;
     display: flex;
-    margin: 1vh auto 1vh auto;
+    margin: 0;
     max-width: 800px;
-    align-self: center;
-}
-
-
-.SupportInfoWallet {
-    width: 50%;
+    align-self: flex-start;
 }

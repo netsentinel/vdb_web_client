@@ -1,0 +1,19 @@
+.MainAreaWrapper {
+    width: 100%;
+    display: flexbox;
+    margin-block-start: max(2vh, 20px);
+    justify-content: start;
+}
+
+.MainAreaText {
+    font-family: "Roboto";
+    font-size: calc(5vw + 20px);
+    font-weight: 500;
+    color: black;
+    padding: 5px;
+
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    margin: auto;   
+}

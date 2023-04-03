@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
 import cls from "./Header.module.css";
-import { authHelper } from "src/helpers/authHelper";
 import { NavLink } from "react-router-dom";
 import globalContext from '../../../helpers/globalContext';
 

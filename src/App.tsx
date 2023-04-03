@@ -9,7 +9,7 @@ import axios from 'axios';
 import envHelper from './helpers/envHelper';
 import { env } from 'process';
 import globalContext from './helpers/globalContext';
-import { authHelper } from './helpers/authHelper';
+import AuthHelper from './helpers/authHelper';
 
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
   //#endregion
 
 
-  authHelper.tryLoadUserAndRefreshIfNeeded();
+  AuthHelper.EnsureUserInContext();
   Modal.setAppElement('#root');
   setLogLevel();
   axios.defaults.withCredentials = true;

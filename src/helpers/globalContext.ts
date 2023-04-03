@@ -1,24 +1,42 @@
 import jwtDecode from "jwt-decode";
 import { UserInfo } from "os";
 import IJwtAuthResponse from "src/models/Auth/IJwtAuthResponse";
-import  IUserInfo  from "src/models/Auth/IUserInfo";
+import IUserInfo from "src/models/Auth/IUserInfo";
 import IJwtInfo from '../models/Common/IJwtInfo';
 import IUserInfoFromJwt from '../models/Auth/IUserInfoFromJwt';
 
 export default class globalContext {
-    public static currentUser: IUserInfoFromJwt;
-    public static accessJwtExpires: number;
-    public static refreshJwtExpires: number;
+    public static currentUser?: IUserInfoFromJwt;
+    public static lastLoadedAccessJwt: string | null;
+    public static refreshJwtExpires: number | null;
 
-
-
-
-    private static readonly accessTokenName:string = "accessTokenJwt";
-
-    public static setAccessJwtInStorage = (token:string) =>{
-        localStorage.setItem(globalContext.accessTokenName,token);
+    // !reviewed 3 apr 2023
+    public static get AccessLifespanMs(): number | undefined {
+        return this.currentUser
+            ? (this.currentUser.exp - this.currentUser.nbf) * 1000
+            : undefined;
     }
-    public static getAccessJwtFromStorage = () =>{
-        return localStorage.getItem(globalContext.accessTokenName);
-    }  
+
+
+    private static readonly accessTokenName: string = "accessTokenJwt";
+
+    public static setAccessJwtInStorage = (token: string) => {
+        localStorage.setItem(this.accessTokenName, token);
+    }
+    public static getAccessJwtFromStorage = () => {
+        let result = localStorage.getItem(this.accessTokenName);
+        this.lastLoadedAccessJwt = result;
+        return result;
+    }
+
+
+    private static readonly accessTokenExpDateName: string = "refreshExpDate";
+
+    public static setRefreshExpInStorage = (refreshExpDate: number) => {
+        localStorage.setItem(this.accessTokenExpDateName, refreshExpDate.toString());
+    }
+    public static getRefreshExpFromStorage = () => {
+        let value = localStorage.getItem(this.accessTokenExpDateName);
+        return value ? parseInt(value) : undefined;
+    }
 }

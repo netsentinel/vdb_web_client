@@ -2,7 +2,6 @@ import { Hash } from "crypto";
 import React, { useState } from "react";
 import cls from "./SupportInfo.module.css";
 import envHelper from '../../../helpers/envHelper';
-import { authHelper } from '../../../helpers/authHelper';
 import RegistrationRequest from "src/models/Auth/RegistrationRequest";
 import IUserInfoFromJwt from '../../../models/Auth/IUserInfoFromJwt';
 import { useNavigate } from "react-router-dom";

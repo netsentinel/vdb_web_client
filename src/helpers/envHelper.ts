@@ -1,6 +1,8 @@
 export default class envHelper {
-    public static isDevelopment = () => process.env.REACT_APP_Environment === "Development";
-    public static isProduction = () => process.env.REACT_APP_Environment === "Production";
+    public static isDevelopment = () => process.env.REACT_APP_Environment?.toLowerCase() === "development";
+    public static isProduction = () => process.env.REACT_APP_Environment?.toLowerCase() === "production";
+    public static isDebugMode = () => process.env.REACT_APP_DebugMode?.toLowerCase() === "true";
+
     public static usePredefinedHost = () => process.env.REACT_APP_Environment?.toLowerCase() === "true";
 
     public static readonly logLevels = ["OFF", "ERROR", "WARN", "INFO", "LOG"];

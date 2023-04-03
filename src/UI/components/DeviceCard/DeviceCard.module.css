@@ -1,0 +1,8 @@
+.CardWrapper{
+    width: 100%;
+    max-width: 600px;
+}
+.RemoveButton{
+    border: 1px solid red;
+    background-color: lightcoral;
+}
