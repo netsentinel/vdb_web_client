@@ -1,10 +1,10 @@
-import UserApiHelper from "./apiHelper";
+import UserApiHelper from "./UserApiHelper";
 import LoginRequest from '../models/Auth/LoginRequest';
 import axios from 'axios';
 import IJwtAuthResponse from '../models/Auth/IJwtAuthResponse';
-import urlHelper from './urlHelper';
-import globalContext from "./globalContext";
-import jwtHelper from './jwtHelper';
+import UrlHelper from './UrlHelper';
+import GlobalContext from "./GlobalContext";
+import JwtHelper from './JwtHelper';
 import { AxiosResponse } from "axios";
 import RegistrationRequest from '../models/Auth/RegistrationRequest';
 
@@ -21,22 +21,22 @@ export default class AuthHelper {
     private static ParseAccessJwtAndUpdateContext = (accessToken: string): boolean => {
         console.info(`Parsing access token \'${accessToken}\'...`)
 
-        var user = jwtHelper.DecodeAccessToken(accessToken);
+        var user = JwtHelper.DecodeAccessToken(accessToken);
         if (!user) {
             console.error("Unable to parse access token.");
             return false;
         }
 
         console.info("Saving JWT into local storage...")
-        globalContext.setAccessJwtInStorage(accessToken);
+        GlobalContext.setAccessJwtInStorage(accessToken);
 
         console.info("Setting last loaded token...");
-        globalContext.lastLoadedAccessJwt = accessToken;
+        GlobalContext.lastLoadedAccessJwt = accessToken;
 
         console.info("Setting current user...");
-        globalContext.currentUser = user;
+        GlobalContext.currentUser = user;
 
-        console.info(`Current user: ${globalContext.currentUser.Email}.\n` +
+        console.info(`Current user: ${GlobalContext.currentUser.Email}.\n` +
             `Access JWT expires: ${new Date(user.exp * 1000)}.`)
 
         return true;
@@ -50,8 +50,8 @@ export default class AuthHelper {
         if (result.status === 200) {
             if (result.data.refreshExpires) {
                 console.info(`Server provided refresh token with expiration date: ${result.data.refreshExpires}.`);
-                globalContext.refreshJwtExpires = result.data.refreshExpires;
-                globalContext.setRefreshExpInStorage(result.data.refreshExpires)
+                GlobalContext.refreshJwtExpires = result.data.refreshExpires;
+                GlobalContext.setRefreshExpInStorage(result.data.refreshExpires)
             }
             return this.ParseAccessJwtAndUpdateContext(result.data.accessToken);
         } else {
@@ -63,7 +63,7 @@ export default class AuthHelper {
     // !reviewed 3 apr 2023
     public static EnsureUserInContext = async (): Promise<boolean> => {
         console.info("Trying to load access token...");
-        const curr = globalContext.currentUser;
+        const curr = GlobalContext.currentUser;
 
         if (curr) { // loaded user already exists
             // 10% of JWT lifespan
@@ -88,7 +88,7 @@ export default class AuthHelper {
         }
 
         // no current user, try to load from localstorage
-        const jwt = globalContext.getAccessJwtFromStorage();
+        const jwt = GlobalContext.getAccessJwtFromStorage();
         if (jwt && AuthHelper.ParseAccessJwtAndUpdateContext(jwt)) {
             console.info("Loading token from local storage...");
             return await this.EnsureUserInContext();
@@ -125,7 +125,7 @@ export default class AuthHelper {
         this._lastStatus = 0;
 
         try {
-            var response = await axios.post<IJwtAuthResponse>(urlHelper.getAuthUrl(), request);
+            var response = await axios.post<IJwtAuthResponse>(UrlHelper.getAuthUrl(), request);
         } catch (e: any) {
             console.error("Failed to login.");
             let code = e["response"]["status"];
@@ -143,7 +143,7 @@ export default class AuthHelper {
         this._lastStatus = 0;
 
         try {
-            var response = await axios.put<IJwtAuthResponse>(urlHelper.getAuthUrl() + `?redirectToLogin=${redirectToLogin}`, request);
+            var response = await axios.put<IJwtAuthResponse>(UrlHelper.getAuthUrl() + `?redirectToLogin=${redirectToLogin}`, request);
         } catch (e: any) {
             console.error("Failed to register.");
             let code = e["response"]["status"];
@@ -160,7 +160,7 @@ export default class AuthHelper {
         this._lastStatus = 0;
 
         try {
-            var response = await axios.patch<IJwtAuthResponse>(urlHelper.getAuthUrl());
+            var response = await axios.patch<IJwtAuthResponse>(UrlHelper.getAuthUrl());
         } catch (e: any) {
             console.error("Failed to refresh tokens.");
             let code = e["response"]["status"];

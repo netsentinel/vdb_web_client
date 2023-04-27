@@ -1,16 +1,21 @@
 import { Hash } from "crypto";
 import React, { useState } from "react";
 import cls from "./SupportInfo.module.css";
-import envHelper from '../../../helpers/envHelper';
+import EnvHelper from '../../../helpers/EnvHelper';
 import RegistrationRequest from "src/models/Auth/RegistrationRequest";
 import IUserInfoFromJwt from '../../../models/Auth/IUserInfoFromJwt';
 import { useNavigate } from "react-router-dom";
-import urlHelper from '../../../helpers/urlHelper';
+import UrlHelper from '../../../helpers/UrlHelper';
 
-const SupportInfo = () => {
+export interface ISupportInfo {
+    ShowWallets?: boolean;
+}
+
+const SupportInfo: React.FC<ISupportInfo> = (props) => {
     const [btcDisabled, setBtcDisabled] = useState(false);
     const [ethDisabled, setEthDisabled] = useState(false);
-
+    const showCrypto = props.ShowWallets ?? true;
+    
     return (
         <span className={[cls.SupportInfoWrapper].join(' ')}>
             <p className={[cls.SupportInfoBlock].join(' ')}>
@@ -23,45 +28,47 @@ const SupportInfo = () => {
                 Paid servers are not activated yet. For now, you can only support the development of this software by sending cryptocurrency.
             </p>
 
-            <span className={[cls.SupportInfoBlock].join(' ')} >
-                <span className={[cls.SupportInfoBlock, cls.SupportInfoWallet].join(' ')}>
+            {showCrypto
+                ? <span className={[cls.SupportInfoBlock].join(' ')} >
+                    <span className={[cls.SupportInfoBlock, cls.SupportInfoWallet].join(' ')}>
 
-                    <span>bitcoin: 14G5VJv49weUfQJbEibQYT7vspWHQyXRAF</span>
-                </span>
-                <span className={[cls.SupportInfoBlock, cls.SupportInfoWallet].join(' ')}>
+                        <span>bitcoin: 14G5VJv49weUfQJbEibQYT7vspWHQyXRAF</span>
+                    </span>
+                    <span className={[cls.SupportInfoBlock, cls.SupportInfoWallet].join(' ')}>
 
-                    <span>ethereum: 0xfaDc0d326a681f1f0813Fcf11d8C918074DF0eE5@1</span>
-                </span>
-            </span>
-            <span className={[cls.SupportInfoBlock].join(' ')} >
-                { // TODO: Craete component 'QrCodeBlock'. 
-                }
-                <span className={[cls.SupportInfoBlock, cls.SupportInfoWallet].join(' ')}>
-                    <button
-                        className={[cls.QrHideButton].join(' ')}
-                        onClick={() => setBtcDisabled(!btcDisabled)}>
-                        {btcDisabled ? "Show QR" : "Hide QR"}</button>
-                    <img
-                        style={{ width: "100%" }}
-                        src={urlHelper.getHostUrl() + "/images/bitcoin.jpg"}
-                        alt="bitcoin:14G5VJv49weUfQJbEibQYT7vspWHQyXRAF"
-                        title="bitcoin QR"
-                        hidden={btcDisabled} />
-                </span>
-                <span className={[cls.SupportInfoBlock, cls.SupportInfoWallet].join(' ')}>
-                    <button
-                        className={[cls.QrHideButton].join(' ')}
-                        onClick={() => setEthDisabled(!ethDisabled)}>
-                        {ethDisabled ? "Show QR" : "Hide QR"}</button>
-                    <img
-                        style={{ width: "100%" }}
-                        src={urlHelper.getHostUrl() + "/images/ethereum.jpg"}
-                        alt="ethereum:0xfaDc0d326a681f1f0813Fcf11d8C918074DF0eE5@1"
-                        title="ethereum QR"
-                        hidden={ethDisabled} />
-                </span>
-            </span>
-        </span>
+                        <span>ethereum: 0xfaDc0d326a681f1f0813Fcf11d8C918074DF0eE5@1</span>
+                    </span>
+                </span> : <span />}
+            {showCrypto
+                ? <span className={[cls.SupportInfoBlock].join(' ')} >
+                    { // TODO: Craete component 'QrCodeBlock'. 
+                    }
+                    <span className={[cls.SupportInfoBlock, cls.SupportInfoWallet].join(' ')}>
+                        <button
+                            className={[cls.QrHideButton].join(' ')}
+                            onClick={() => setBtcDisabled(!btcDisabled)}>
+                            {btcDisabled ? "Show QR" : "Hide QR"}</button>
+                        <img
+                            style={{ width: "100%" }}
+                            src={UrlHelper.getHostUrl() + "/images/bitcoin.jpg"}
+                            alt="bitcoin:14G5VJv49weUfQJbEibQYT7vspWHQyXRAF"
+                            title="bitcoin QR"
+                            hidden={btcDisabled} />
+                    </span>
+                    <span className={[cls.SupportInfoBlock, cls.SupportInfoWallet].join(' ')}>
+                        <button
+                            className={[cls.QrHideButton].join(' ')}
+                            onClick={() => setEthDisabled(!ethDisabled)}>
+                            {ethDisabled ? "Show QR" : "Hide QR"}</button>
+                        <img
+                            style={{ width: "100%" }}
+                            src={UrlHelper.getHostUrl() + "/images/ethereum.jpg"}
+                            alt="ethereum:0xfaDc0d326a681f1f0813Fcf11d8C918074DF0eE5@1"
+                            title="ethereum QR"
+                            hidden={ethDisabled} />
+                    </span>
+                </span> : <span />}
+        </span >
     );
 }
 

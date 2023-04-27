@@ -1,0 +1,23 @@
+.AreaWrapper {
+    width: 100%;
+    display: flex;
+    margin-block-start: max(2vh, 20px);
+    justify-content: flex-start;
+    justify-items: flex-start;
+    text-align: start;
+    flex-direction: column;
+}
+
+.RedButton {
+    font-family: "Roboto";
+    font-size: calc(1vw + 20px);
+    font-weight: 500;
+    color: black;
+    padding: 5px;
+    
+    border: 1px solid red;
+    background-color: lightcoral;
+    text-align: center;  
+    display: flex; 
+    margin: 0 auto;
+}

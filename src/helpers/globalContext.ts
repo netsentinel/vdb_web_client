@@ -5,7 +5,7 @@ import IUserInfo from "src/models/Auth/IUserInfo";
 import IJwtInfo from '../models/Common/IJwtInfo';
 import IUserInfoFromJwt from '../models/Auth/IUserInfoFromJwt';
 
-export default class globalContext {
+export default class GlobalContext {
     public static currentUser?: IUserInfoFromJwt;
     public static lastLoadedAccessJwt: string | null;
     public static refreshJwtExpires: number | null;
@@ -39,4 +39,16 @@ export default class globalContext {
         let value = localStorage.getItem(this.accessTokenExpDateName);
         return value ? parseInt(value) : undefined;
     }
+
+
+    public static logout = () =>{
+        console.info("Logging out: removing user info...")
+
+        localStorage.removeItem(this.accessTokenName);
+        localStorage.removeItem(this.accessTokenExpDateName);
+
+        this.currentUser = undefined;
+        this.lastLoadedAccessJwt =  this.refreshJwtExpires = null;
+    }
+    
 }

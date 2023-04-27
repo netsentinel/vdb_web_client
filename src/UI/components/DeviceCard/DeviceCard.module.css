@@ -1,8 +1,36 @@
-.CardWrapper{
+.CardWrapper {
+    display: flex;
     width: 100%;
     max-width: 600px;
+    flex-direction: column;
+    margin: 1vh auto;
+    align-content: flex-start;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: calc(1.5vh + 1vw);
+    align-items: start;
+    justify-content: start;
+    justify-items: start;
 }
-.RemoveButton{
+
+.CardElement {
+    display: flex;
+ 
+}
+
+.RemoveButton {
+    display: flex;
+    align-self: flex-start;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: calc(1vh + 1vw);
+    box-sizing: border-box;
     border: 1px solid red;
     background-color: lightcoral;
+    border-radius: 3px;
+    padding: 5px;
+
+    border: 1px solid red;
+    background-color: lightcoral;
+    text-align: center;  
+    display: flex; 
+    margin: 0;
 }

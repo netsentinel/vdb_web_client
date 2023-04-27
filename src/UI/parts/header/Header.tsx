@@ -1,21 +1,28 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import cls from "./Header.module.css";
 import { NavLink } from "react-router-dom";
-import globalContext from '../../../helpers/globalContext';
+import GlobalContext from '../../../helpers/GlobalContext';
 
-const Header = () => {
+const Header: React.FC = () => {
     const [accountPath, setAccountPath] = useState("auth");
     const [accountPathName, setAccountPathName] = useState("account");
+    const [currentUserEmail, setCurrentUserEmail] = useState<string>();
 
     // TODO: this memo not working
-    var currUserMemo = useMemo(() => {
+    const userMemo = useMemo(() => {
         console.info("Memo[globalContext.currentUser] triggered.\n"
-            + `Global user is: ${globalContext.currentUser?.Email}`);
-        setAccountPath(globalContext.currentUser ? "/personal" : "/auth")
-        setAccountPathName(globalContext.currentUser?.Email.split('@')[0] ?? "sign in")
-    }, [globalContext.currentUser]);
+            + `Global user is: ${GlobalContext.currentUser?.Email}`);
+        setAccountPath(GlobalContext.currentUser ? "/personal" : "/auth")
+        setAccountPathName(GlobalContext.currentUser?.Email.split('@')[0] ?? "sign in")
+    }, [currentUserEmail]);
 
-
+    const reviewUser = () => {
+        console.log("Reviewing user...");
+        if(GlobalContext.currentUser?.Email !== currentUserEmail){
+            setCurrentUserEmail(GlobalContext.currentUser?.Email);
+        }
+    }
+    setInterval(reviewUser, 1000);
 
     return (
         <header className={cls.appHeader}>

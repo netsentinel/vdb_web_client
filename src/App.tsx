@@ -6,30 +6,30 @@ import Modal from 'react-modal';
 import "./App.css"
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
-import envHelper from './helpers/envHelper';
+import EnvHelper from './helpers/EnvHelper';
 import { env } from 'process';
-import globalContext from './helpers/globalContext';
-import AuthHelper from './helpers/authHelper';
+import GlobalContext from './helpers/GlobalContext';
+import AuthHelper from './helpers/AuthHelper';
 
 
 function App() {
   //#region Post-load
   const setLogLevel = () => {
-    var level = envHelper.logLevel();
+    var level = EnvHelper.logLevel();
 
-    if (level === envHelper.logLevels.at(-1)) { // enable all
+    if (level === EnvHelper.logLevels.at(-1)) { // enable all
 
     }
-    if (level === envHelper.logLevels.at(-2)) { // disable log
+    if (level === EnvHelper.logLevels.at(-2)) { // disable log
       console.log = function () { }
     }
-    if (level === envHelper.logLevels.at(-3)) { // disable +info
+    if (level === EnvHelper.logLevels.at(-3)) { // disable +info
       console.log = console.trace = console.info = function () { };
     }
-    if (level === envHelper.logLevels.at(-4)) { // disable +warn
+    if (level === EnvHelper.logLevels.at(-4)) { // disable +warn
       console.log = console.trace = console.info = console.warn = function () { };
     }
-    if (level === envHelper.logLevels.at(-5)) { // disable +error
+    if (level === EnvHelper.logLevels.at(-5)) { // disable +error
       console.log = console.trace = console.info = console.warn = console.error = function () { };
     }
   }

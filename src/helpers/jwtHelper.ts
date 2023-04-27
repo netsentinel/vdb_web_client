@@ -4,7 +4,7 @@ import IJwtAuthResponse from "src/models/Auth/IJwtAuthResponse";
 import IJwtInfo from '../models/Common/IJwtInfo';
 import IUserInfoFromJwt from '../models/Auth/IUserInfoFromJwt';
 
-export default class jwtHelper {
+export default class JwtHelper {
     // !reviewed 3 apr 2023
     public static DecodeAccessToken = (accessJwt: string) => {
         console.info("Deconding access token using jwtHelper...");
@@ -27,7 +27,7 @@ export default class jwtHelper {
         let exp = new Date(decodedJwt.exp * 1000);
         let nbf = new Date(decodedJwt.nbf * 1000);
         let now = new Date(Date.now());
-        console.info(`Validating token lifetime:\nexp=${exp},\nnbf=${nbf},\nnow=${now}.`);
+        console.info(`Validating token lifetime:\nexp= ${exp},\nnbf= ${nbf},\nnow= ${now}.`);
 
         if (exp < now) return false;
         if (nbf > now) return false;

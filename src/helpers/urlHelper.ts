@@ -1,14 +1,14 @@
 import endpoints from "../config/endpoints.json"
 import { urlJoin } from 'url-join-ts';
-import envHelper from './envHelper';
+import EnvHelper from './EnvHelper';
 
 
 /* Данный класс генерирует URLы для преопредленных
  * в json-файле эндпоинтов.
  */
-export default class urlHelper {
+export default class UrlHelper {
     public static getHostUrl = () =>
-        envHelper.usePredefinedHost()
+        EnvHelper.usePredefinedHost()
             ? endpoints.backend.host
             : window.location.protocol + '//' + window.location.host;
 

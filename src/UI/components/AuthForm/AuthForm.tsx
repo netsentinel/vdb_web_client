@@ -1,11 +1,12 @@
 import { Hash } from "crypto";
 import React, { useState } from "react";
 import cls from "./AuthForm.module.css";
-import envHelper from '../../../helpers/envHelper';
+import EnvHelper from '../../../helpers/EnvHelper';
 import RegistrationRequest from "src/models/Auth/RegistrationRequest";
 import IUserInfoFromJwt from '../../../models/Auth/IUserInfoFromJwt';
 import { useNavigate } from "react-router-dom";
-import AuthHelper from '../../../helpers/authHelper';
+import AuthHelper from '../../../helpers/AuthHelper';
+import authSettings from "../../../config/authSettings.json"
 
 const AuthForm = () => {
     const [email, setEmail] = useState("");
@@ -22,6 +23,20 @@ const AuthForm = () => {
         setErrorMessage("");
         setCommonMessage("");
         console.info(`Submitting: ${email}:${password}`);
+
+        if (
+            password.length < authSettings.passwordMinLength ||
+            password.length > authSettings.passwordMaxLength ||
+            !(/\d/.test(password)) || // has digit
+            password.toLowerCase() === password ||
+            password.toUpperCase() === password
+        ) {
+            console.info("Password failed client-side validation.");
+            setErrorMessage(
+                `Password must be ${authSettings.passwordMinLength}` +
+                `to ${authSettings.passwordMaxLength} characters long and contain` +
+                `at least one digit, one upper case and one lower case letters.`);
+        }
 
         let result = false;
         try {

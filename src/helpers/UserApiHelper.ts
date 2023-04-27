@@ -1,15 +1,15 @@
 import axios from "axios";
-import urlHelper from "./urlHelper";
+import UrlHelper from "./UrlHelper";
 import IUserDevice from '../models/Device/IUserDevice';
-import globalContext from './globalContext';
+import GlobalContext from './GlobalContext';
 import DeleteDeviceRequest from '../models/Device/DeleteDeviceRequest';
-import AuthHelper from './authHelper';
+import AuthHelper from './AuthHelper';
 
 /* This class must be transient sience it has no ability
  * to refresh access token and will simply fail if it 
  * expire during the instance lifetime.
  */
-export default class apiHelper {
+export default class UserApiHelper {
     private _lastStatus?: number;
     public get lastStatus(): number | undefined {
         return this._lastStatus;
@@ -22,8 +22,8 @@ export default class apiHelper {
 
     // !reviewed 3 apr 2023
     private onRequest = async () => {
-        if ((await AuthHelper.EnsureUserInContext()) && globalContext.lastLoadedAccessJwt) {
-            this._accessJwt = globalContext.lastLoadedAccessJwt;
+        if ((await AuthHelper.EnsureUserInContext()) && GlobalContext.lastLoadedAccessJwt) {
+            this._accessJwt = GlobalContext.lastLoadedAccessJwt;
         } else {
             throw Error("No JWT was loaded.");
         }
@@ -33,7 +33,7 @@ export default class apiHelper {
     public getUserDevices = async () => {
         await this.onRequest();
         try {
-            var response = await axios.get<IUserDevice[]>(urlHelper.getDeviceUrl(), {
+            var response = await axios.get<IUserDevice[]>(UrlHelper.getDeviceUrl(), {
                 headers: {
                     'Authorization': ('Bearer ' + this._accessJwt)
                 }
@@ -62,7 +62,7 @@ export default class apiHelper {
     public removeUserDevice = async (devicePubkey: string) => {
         await this.onRequest();
         try {
-            var response = await axios.patch<IUserDevice[]>(urlHelper.getDeviceUrl(),
+            var response = await axios.patch<IUserDevice[]>(UrlHelper.getDeviceUrl(),
                 new DeleteDeviceRequest(devicePubkey), {
                 headers: {
                     'Authorization': ('Bearer ' + this._accessJwt)
