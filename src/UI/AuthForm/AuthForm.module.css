@@ -1,0 +1,62 @@
+.authWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 2rem;
+    margin: 1rem;
+    margin-top: 3rem;
+    font-family: inherit;
+    align-self: center;
+    opacity: 0;
+}
+
+@media (orientation: landscape) {
+    .authWrapper {
+        max-width: 600px;
+    }
+}
+
+@media (orientation: portrait) {
+    .authWrapper {
+        max-width: calc(100% - 2rem);
+    }
+}
+
+.credentialsInput {
+    display: inherit;
+    padding: .3rem;
+    font-size: 2rem;
+    font-family: inherit;
+    border: 3px solid black;
+    border-radius: 3px;
+    background-color: aliceblue;
+}
+
+.errorWrapper{
+    width: 100%;
+    border: 1px solid red;
+    background-color: rgb(255,240,240);
+    border-radius: 3px;
+    padding: 1rem;
+    margin-top: .5rem;
+}
+
+.authSubmit{
+    display: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    justify-content: center;
+    align-self: flex-end;
+    padding: .3rem 1rem;
+}
+
+.welcomeTransitionEnter{
+    opacity: 0;
+    transform: translateX(-5rem);
+}
+
+.welcomeTransitionEnterActive{
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+}

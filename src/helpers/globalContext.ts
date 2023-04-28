@@ -17,7 +17,6 @@ export default class GlobalContext {
             : undefined;
     }
 
-
     private static readonly accessTokenName: string = "accessTokenJwt";
 
     public static setAccessJwtInStorage = (token: string) => {
@@ -39,7 +38,6 @@ export default class GlobalContext {
         let value = localStorage.getItem(this.accessTokenExpDateName);
         return value ? parseInt(value) : undefined;
     }
-
 
     public static logout = () =>{
         console.info("Logging out: removing user info...")
