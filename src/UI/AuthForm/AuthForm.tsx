@@ -26,24 +26,60 @@ const AuthForm: React.FC = () => {
         if (EnvHelper.isDebugMode())
             setErrorMessage("Test erorr message");
 
-        setSubmitEnabled(false);
-        setTimeout(() => setSubmitEnabled(true), 10000);
-        setErrorMessage("");
-        console.info(`Submitting: ${email}:${password}`);
-
         if (
             password.length < authSettings.passwordMinLength ||
             password.length > authSettings.passwordMaxLength ||
-            !(/\d/.test(password)) || // has digit
-            password.toLowerCase() === password ||
-            password.toUpperCase() === password
+            (authSettings.passwordMustContainDigits && !(/\d/.test(password))) || // has digit
+            (authSettings.passwordMustContainUpperCase && password.toLowerCase() === password) ||
+            (authSettings.passwordMustContainLowerCase && password.toUpperCase() === password)
         ) {
             console.info("Password failed client-side validation.");
-            setErrorMessage(
-                `Password must be ${authSettings.passwordMinLength}` +
-                `to ${authSettings.passwordMaxLength} characters long and contain` +
-                `at least one digit, one upper case and one lower case letters.`);
+            let error =
+                `Password must be ${authSettings.passwordMinLength} ` +
+                `to ${authSettings.passwordMaxLength} characters long.`;
+
+            if (!(authSettings.passwordMustContainDigits ||
+                authSettings.passwordMustContainUpperCase ||
+                authSettings.passwordMustContainLowerCase)) {
+                setErrorMessage(error);
+                return;
+            }
+
+            error += ` It must contain at least`;
+
+            if (authSettings.passwordMustContainDigits) {
+                error += ` one digit`;
+            }
+            if (authSettings.passwordMustContainLowerCase) {
+                if (!error.endsWith('least'))
+                    if (authSettings.passwordMustContainUpperCase)
+                        error += ',';
+                    else
+                        error += ' and'
+
+                error += ` one lower case letter`;
+            }
+            if (authSettings.passwordMustContainUpperCase) {
+                if (!error.endsWith('least')) error += ' and';
+
+                error += ` one upper case letter`;
+            }
+
+            error += '.';
+            setErrorMessage(error);
+            setSubmitEnabled(true);
+            return;
         }
+
+
+
+        if (!EnvHelper.isDebugMode()) {
+            setSubmitEnabled(false);
+            if (!EnvHelper.isDebugMode()) setTimeout(() => setSubmitEnabled(true), 5000);
+        }
+        setErrorMessage("");
+        console.info(`Submitting: ${email}:${password}`);
+
 
         let result = false;
         try {
@@ -99,20 +135,23 @@ const AuthForm: React.FC = () => {
     return (
         <CSSTransition in={transState} {...commonTransProp}>
             <span className={cl.authWrapper}>
-                <span>Email</span>
+                <span className={cl.authHeader}>
+                    <strong>
+                        Login or Register
+                    </strong>
+                </span>
+                <span className={cl.credentialsLabel}>Email</span>
                 <input
                     type={"email"}
                     placeholder="Email"
                     value={email} onChange={(e) => setEmail(e.target.value)}
                     className={cl.credentialsInput} />
-                <br />
-                <span>Password</span>
+                <span className={cl.credentialsLabel}>Password</span>
                 <input
                     type={"password"}
                     placeholder="Password"
                     value={password} onChange={(e) => setPassword(e.target.value)}
                     className={cl.credentialsInput} />
-                <br />
                 <button
                     type="submit"
                     onClick={onSubmit}

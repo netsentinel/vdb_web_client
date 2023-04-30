@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import GlobalContext from '../../helpers/GlobalContext';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useState, useEffect } from 'react';
+import VdbActiveNodes from "../VdbActiveNodes/VdbActiveNodes";
 
 
 
@@ -11,12 +12,14 @@ const VdbWelcome: React.FC = () => {
     const [secureTransSt, setSecureTransSt] = useState(false);
     const [sourceTransSt, setSourceTransSt] = useState(false);
     const [descrTransSt, setDescrTransSt] = useState(false);
+    const [othersTransSt, setOthersTransSt] = useState(false);
 
     useEffect(() => {
         setTimeout(() => setFastTransSt(true), 0);
         setTimeout(() => setSecureTransSt(true), 200);
         setTimeout(() => setSourceTransSt(true), 400);
         setTimeout(() => setDescrTransSt(true), 600);
+        setTimeout(() => setOthersTransSt(true), 800);
     }, []);
 
     const transitionClasses = {
@@ -27,11 +30,11 @@ const VdbWelcome: React.FC = () => {
     }
 
     const commonTransProp = {
-        timeout: 200,
+        timeout: 300,
         classNames: transitionClasses
     }
 
-    
+
     return (
         <span className={cl.welcomeWrapper}>
             <span className={cl.welcomeRow}>
@@ -77,6 +80,16 @@ const VdbWelcome: React.FC = () => {
                     </span>
                 </span>
             </span>
+            <CSSTransition in={othersTransSt} {...commonTransProp}>
+                <span className={cl.currentStatusPhrase}>
+                    Current status:
+                </span>
+            </CSSTransition>
+            <CSSTransition in={othersTransSt} {...commonTransProp}>
+                <span className={cl.nodesList}>
+                    <VdbActiveNodes />
+                </span>
+            </CSSTransition>
         </span>
     );
 }

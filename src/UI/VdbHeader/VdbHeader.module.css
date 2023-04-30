@@ -1,7 +1,7 @@
 .header {
     display: flex;
     flex-direction: row;
-    font-family: "Roboto";
+    font-family: inherit;
     margin: 1rem;
 }
 
@@ -9,13 +9,14 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    margin-right: 3rem;
 }
 
 .title {
     display: flex;
     font-size: 3rem;
     font-weight: 400;
-    color:inherit;
+    color: inherit;
 }
 
 .subtitle {
@@ -23,7 +24,7 @@
     font-size: 2rem;
     font-weight: 400;
     margin-top: -1rem;
-    color:inherit;
+    color: inherit;
 }
 
 .menuRow {
@@ -37,16 +38,20 @@
     display: flex;
     font-size: 2rem;
     align-self: center;
-    margin-left: 3rem;
+    margin-right: 3rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
-.menuElement:hover, .titleWrapper:hover{
-    color:rgb(0,0,150);
+.menuElement:hover,
+.titleWrapper:hover {
+    color: rgb(0, 0, 150);
 }
 
-a, a:visited, a:hover, a:active {
+a,
+a:visited,
+a:hover,
+a:active {
     color: inherit;
     text-decoration: inherit;
-  }
+}

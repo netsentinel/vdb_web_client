@@ -1,0 +1,16 @@
+.deviceListWrapper{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.welcomeTransitionEnter{
+    opacity: 0;
+    transform: translateX(-5rem);
+}
+
+.welcomeTransitionEnterActive{
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 800ms, transform 800ms;
+}

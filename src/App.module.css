@@ -4,11 +4,11 @@
   box-sizing: border-box;
 }
 
-.wrapper{
+.wrapper {
   display: flex;
   flex-direction: column;
   width: 100vw;
-  font-family: "Roboto";
+  font-family: inherit;
 }
 
 .app {
@@ -23,13 +23,9 @@
     max-width: 1200px;
   }
 }
+
 @media (orientation: portrait) {
   .app {
     max-width: 98%;
   }
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url(/public/fonts/RobotoFlex.woff2);
 }

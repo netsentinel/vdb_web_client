@@ -1,15 +1,15 @@
 .welcomeWrapper{
     display: flex;
     flex-direction: column;
-    width: 100%;
     margin: 1rem;
 }
 
 .welcomeRow{
     display: inherit;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
+    margin-bottom: 4rem;
 }
 
 .welcomWords{
@@ -27,14 +27,6 @@
     opacity: 0; /*initial*/
 }
 
-.statusWrapper {
-    display: inherit;
-}
-.nodesStatus{
-    display: inherit;
-    align-self: center;
-    font-size: 3rem;
-}
 
 .welcomeDescription{
     display: inherit;
@@ -46,10 +38,56 @@
     display: inherit;
     flex-direction: column;
     word-wrap: break-word;
-    font-size: 2rem;
-    margin-top: 2rem;
+    font-size: 1.75rem;
+    margin-top: 2.5rem;
     opacity: 0; /*initial*/
 }
+
+@media (orientation: landscape) {
+    .welcomeRow {
+        flex-wrap: nowrap;
+    }
+    .welcomeDecriptionPhrase{
+        max-width: calc(600px - 5rem);
+    }
+}   
+
+@media (orientation: portrait) {
+    .welcomeRow {
+        flex-wrap: wrap;
+    }
+    .welcomeDecriptionPhrase{
+        max-width: 100%;
+    }
+}
+
+.activeNodes{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    opacity: 0; /*initial*/
+}
+
+.currentStatusPhrase{
+    font-size: 3rem; 
+    opacity: 0; /*initial*/
+}
+currentStatusPhrase::first-line{
+    text-transform: lowercase;
+}
+
+.nodesList{
+    display: flex;
+    opacity: 0; /*initial*/
+}
+
+
+
+
+
+
+
+
 
 .welcomeTransitionEnter{
     opacity: 0;

@@ -1,5 +1,4 @@
 .authWrapper {
-    width: 100%;
     display: flex;
     flex-direction: column;
     font-size: 2rem;
@@ -12,17 +11,25 @@
 
 @media (orientation: landscape) {
     .authWrapper {
+        width: 600px;
         max-width: 600px;
     }
-}
+}   
 
 @media (orientation: portrait) {
     .authWrapper {
-        max-width: calc(100% - 2rem);
+        width: 100%;
+        max-width: 100%;
     }
 }
 
+.authHeader{
+    display: inherit;
+    align-self: center;
+}
+
 .credentialsInput {
+    width: 100%;
     display: inherit;
     padding: .3rem;
     font-size: 2rem;
@@ -30,6 +37,12 @@
     border: 3px solid black;
     border-radius: 3px;
     background-color: aliceblue;
+}
+
+.credentialsLabel{
+    display: inherit;
+    font-size: 2rem;
+    margin-top: 2rem;
 }
 
 .errorWrapper{
@@ -48,6 +61,15 @@
     justify-content: center;
     align-self: flex-end;
     padding: .3rem 1rem;
+    margin-top: 1rem;
+
+    border: 0;
+    border-radius: 0;
+    color:white;
+    background-color: black;
+}
+.authSubmit:hover{
+    cursor: pointer;
 }
 
 .welcomeTransitionEnter{
