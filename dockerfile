@@ -1,19 +1,18 @@
 FROM alpine:3 AS base
 
 
-
 FROM node:19-alpine as build
 
 WORKDIR /app
 
 COPY ./package.json ./package.json
+RUN npm i --no-audit --no-package-lock --force
+
 COPY ./src ./src
 COPY ./typings ./typings
 COPY ./public ./public
 COPY ./tsconfig.json ./tsconfig.json
 COPY ./declaration.d.ts ./declaration.d.ts
-
-RUN npm i --no-audit --no-package-lock --force
 RUN npm run build
 
 

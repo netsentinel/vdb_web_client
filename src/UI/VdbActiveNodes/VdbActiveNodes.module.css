@@ -1,0 +1,18 @@
+.nodesWrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    opacity: 1; /*initial*/
+}
+
+.welcomeTransitionEnter {
+    opacity: 0;
+    transform: translateX(-5rem);
+}
+
+.welcomeTransitionEnterActive {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+}

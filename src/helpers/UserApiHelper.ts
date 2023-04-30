@@ -76,7 +76,7 @@ export default class UserApiHelper {
             return false;
         }
 
-        if (response.status !== 200) {
+        if (!(response.status >= 200 && response.status <= 299)) {
             console.error(`Failed to load devices: HTTP_${response.status}.`);
             this._lastStatus = response.status;
             return false;
