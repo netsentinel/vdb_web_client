@@ -35,7 +35,7 @@ const VdbActiveNodes: React.FC = () => {
             {
                 nodes
                     ? nodes.map(x => <ActiveNodeCard {...x} key={x.id} />)
-                    : <span>There are no online nodes for now.</span>
+                    : <span className={cl.noNodesMsg}>There are no online nodes for now.</span>
             }
         </span>
     );

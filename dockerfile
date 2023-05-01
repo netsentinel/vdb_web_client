@@ -13,6 +13,10 @@ COPY ./typings ./typings
 COPY ./public ./public
 COPY ./tsconfig.json ./tsconfig.json
 COPY ./declaration.d.ts ./declaration.d.ts
+COPY ["./.env", "./.env"]
+COPY ["./.env.development", "./.env.development"]
+COPY ["./.env.production", "./.env.production"]
+
 RUN npm run build
 
 

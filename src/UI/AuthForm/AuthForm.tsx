@@ -136,9 +136,7 @@ const AuthForm: React.FC = () => {
         <CSSTransition in={transState} {...commonTransProp}>
             <span className={cl.authWrapper}>
                 <span className={cl.authHeader}>
-                    <strong>
-                        Login or Register
-                    </strong>
+                    <strong>Sign in</strong>&nbsp;or&nbsp;<strong>Sign up</strong>
                 </span>
                 <span className={cl.credentialsLabel}>Email</span>
                 <input
