@@ -9,6 +9,7 @@ import EnvHelper from '../../helpers/EnvHelper';
 import AuthHelper from '../../helpers/AuthHelper';
 import authSettings from "../../config/authSettings.json"
 import RegistrationRequest from '../../models/Auth/RegistrationRequest';
+import ValidationHelper from '../../helpers/ValidationHelper';
 
 const AuthForm: React.FC = () => {
     const [transState, setTransState] = useState(false);
@@ -26,52 +27,13 @@ const AuthForm: React.FC = () => {
         if (EnvHelper.isDebugMode())
             setErrorMessage("Test erorr message");
 
-        if (
-            password.length < authSettings.passwordMinLength ||
-            password.length > authSettings.passwordMaxLength ||
-            (authSettings.passwordMustContainDigits && !(/\d/.test(password))) || // has digit
-            (authSettings.passwordMustContainUpperCase && password.toLowerCase() === password) ||
-            (authSettings.passwordMustContainLowerCase && password.toUpperCase() === password)
-        ) {
-            console.info("Password failed client-side validation.");
-            let error =
-                `Password must be ${authSettings.passwordMinLength} ` +
-                `to ${authSettings.passwordMaxLength} characters long.`;
-
-            if (!(authSettings.passwordMustContainDigits ||
-                authSettings.passwordMustContainUpperCase ||
-                authSettings.passwordMustContainLowerCase)) {
-                setErrorMessage(error);
+            let passError = ValidationHelper.ValidatePasswordAndGetError(password);
+            if(passError){
+                console.info("Password failed client-side validation.");
+                setErrorMessage(passError);
+                setSubmitEnabled(true);
                 return;
             }
-
-            error += ` It must contain at least`;
-
-            if (authSettings.passwordMustContainDigits) {
-                error += ` one digit`;
-            }
-            if (authSettings.passwordMustContainLowerCase) {
-                if (!error.endsWith('least'))
-                    if (authSettings.passwordMustContainUpperCase)
-                        error += ',';
-                    else
-                        error += ' and'
-
-                error += ` one lower case letter`;
-            }
-            if (authSettings.passwordMustContainUpperCase) {
-                if (!error.endsWith('least')) error += ' and';
-
-                error += ` one upper case letter`;
-            }
-
-            error += '.';
-            setErrorMessage(error);
-            setSubmitEnabled(true);
-            return;
-        }
-
-
 
         if (!EnvHelper.isDebugMode()) {
             setSubmitEnabled(false);
@@ -114,7 +76,7 @@ const AuthForm: React.FC = () => {
         else {
             console.info("Redirecting to personal...");
             navigate("/personal");
-            window.location.reload();
+            //window.location.reload(); // not really needed ?
         }
 
         setSubmitEnabled(true);

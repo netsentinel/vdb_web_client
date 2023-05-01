@@ -106,7 +106,7 @@ export default class AuthHelper {
     }
 
     // !reviewed 3 apr 2023
-    private static HandleLoginOrRegisterRenpose = (response?: AxiosResponse<IJwtAuthResponse, any>): boolean => {
+    public static HandleLoginOrRegisterRenpose = (response?: AxiosResponse<IJwtAuthResponse, any>): boolean => {
         if (response) {
             this._lastStatus = response.status;
             try {

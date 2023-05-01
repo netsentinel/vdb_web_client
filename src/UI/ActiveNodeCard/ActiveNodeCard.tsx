@@ -14,14 +14,15 @@ const ActiveNodeCard: React.FC<IPublicNodeInfo> = (props) => {
     }, []);
 
 
-    function capitalize(s:string) {
+    function capitalize(s: string) {
         return s.charAt(0).toUpperCase() + s.slice(1);
     }
 
     return (
         <span className={cl.cardWrapper}>
             <span className={props.isActive ? cl.cardActive : cl.cardInactive}>
-                <strong>{capitalize(props.name)}</strong>&nbsp;&nbsp;Connections: {props.clientsConnected}
+                <span className={cl.nodeName}><strong>{capitalize(props.name)}</strong></span>
+                &nbsp;&nbsp;Connections: {props.clientsConnected}
             </span>
         </span>
     );

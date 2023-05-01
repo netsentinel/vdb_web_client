@@ -6,6 +6,10 @@ import { useState, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import DevicesList from "../DevicesList/DevicesList";
 import AuthHelper from '../../helpers/AuthHelper';
+import UserApiHelper from '../../helpers/UserApiHelper';
+import ISessionsResponse from '../../models/Auth/ISessionsResponse';
+import VdbSecurity from '../VdbSecurity/VdbSecurity';
+import EnvHelper from '../../helpers/EnvHelper';
 
 const VdbPersonal: React.FC = () => {
     const navigate = useNavigate();
@@ -14,11 +18,18 @@ const VdbPersonal: React.FC = () => {
         setTimeout(() => setTransState(true), 0);
     }, []);
 
-    const logout = () =>{
+    if (GlobalContext.currentUser == undefined &&
+        (!EnvHelper.isDebugMode() || EnvHelper.isProduction())) {
+        navigate("/auth");
+    }
+
+    const logout = async () => {
+        await new UserApiHelper().terminateThisSession();
         GlobalContext.logout();
         navigate("/");
         window.location.reload();
     }
+
 
     const transitionClasses = {
         enterActive: cl.welcomeTransitionEnter,
@@ -38,10 +49,14 @@ const VdbPersonal: React.FC = () => {
                     You are logged in as: <span className={cl.loggedAsEmail}>
                         {GlobalContext.currentUser?.Email ?? "unknown"}
                     </span>
-                    <button className={cl.logoutBtn}  onClick={logout}>
+                    <button className={cl.logoutBtn} onClick={logout}>
                         LOG OUT
                     </button>
-                </span>     
+                </span>
+                <span className={cl.personalText}>
+                    Security:
+                </span>
+                <VdbSecurity />
                 <span className={cl.personalText}>
                     Devices:
                 </span>

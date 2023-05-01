@@ -14,21 +14,17 @@ const VdbActiveNodes: React.FC = () => {
     const [nodes, setNodes] = useState<IPublicNodeInfo[]>();
     useEffect(() => {
         setTransState(true);
+        ApiHelper.getNodesList().then(r => {
+            if (!r) return;
+
+            if (EnvHelper.isDebugMode() && (r!.length == 1)) {
+                r = [...r, ...r, ...r, ...r, ...r];
+                r[0].isActive = true;
+            }
+
+            setNodes(r);
+        });
     }, []);
-
-    ApiHelper.getNodesList().then(r => {
-        if (!r) return;
-
-        if (EnvHelper.isDebugMode() && (r!.length == 1)) {
-            r = [...r, ...r, ...r, ...r, ...r];
-            r[0].isActive=true;
-        }
-
-        setNodes(r);
-    });
-
-
-
 
     return (
         <span className={cl.nodesWrapper}>

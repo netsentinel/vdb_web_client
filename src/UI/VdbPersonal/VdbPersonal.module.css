@@ -7,12 +7,12 @@
 .personalText{
     font-family: inherit;
     font-size: 3rem;
+    margin-top: 1rem;
 }
 
 .loggedAs{
     font-family: inherit;
     font-size: 2rem;
-    margin-bottom: 1rem;
 }
 
 .loggedAsEmail{

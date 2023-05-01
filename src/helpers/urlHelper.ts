@@ -27,4 +27,15 @@ export default class UrlHelper {
     public static getDeviceUrl = () => urlJoin(
         this.getApiBaseUrl(),
         endpoints.backend.deviceControllerPath);
+
+    public static getSessionsUrl = () => urlJoin(
+        this.getAuthUrl(),
+        "/sessions");
+
+    public static getCurrentSessionTerminationUrl = () => urlJoin(
+        this.getAuthUrl(),
+        "/self");
+    public static getPasswordPatchUrl = () => urlJoin(
+        this.getAuthUrl(),
+        "/password");
 }

@@ -49,6 +49,13 @@
     background-color: black;
 }
 
+.nodeName{
+    font-size: inherit;
+    display: inherit;
+
+    font-family: Consolas, monospace;
+}
+
 .cardActive{
     color:lightgreen
 }
