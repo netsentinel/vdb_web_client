@@ -38,3 +38,12 @@
     transform: translateX(0);
     transition: opacity 300ms, transform 300ms;
 }
+
+@media screen and (max-aspect-ratio: 0.6/1) {
+    .textSpan {
+        font-size: calc(2 * 3rem);
+    }
+    .goToReleaseButton{
+        font-size: calc(1.75 * 2rem);
+    }
+}

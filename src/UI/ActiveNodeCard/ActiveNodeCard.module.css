@@ -1,18 +1,19 @@
-.col{
+.col {
     display: flex;
     flex-direction: column;
 }
-.row{
+
+.row {
     display: flex;
     flex-direction: row;
 }
 
-.cardWrapper{
+.cardWrapper {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
-    margin-right: 1rem; 
-    
+    margin-right: 1rem;
+
     font-size: 1.75rem;
     font-weight: 400;
     border-radius: 0;
@@ -21,7 +22,7 @@
 
 .cardInactive,
 .cardActive,
-::first-line{
+::first-line {
     /*text-transform:capitalize;*/
 }
 
@@ -30,7 +31,7 @@
     .cardWrapper {
         width: calc(50% - 1rem);
     }
-}   
+}
 
 @media (orientation: portrait) {
     .cardWrapper {
@@ -39,7 +40,7 @@
 }
 
 .cardActive,
-.cardInactive{
+.cardInactive {
     display: inherit;
     padding: .9rem;
     justify-content: inherit;
@@ -49,16 +50,24 @@
     background-color: black;
 }
 
-.nodeName{
+.nodeName {
     font-size: inherit;
     display: inherit;
 
     font-family: Consolas, monospace;
 }
 
-.cardActive{
-    color:lightgreen
+.cardActive {
+    color: lightgreen
 }
-.cardInactive{
-    color:red;
+
+.cardInactive {
+    color: red;
+}
+
+
+@media screen and (max-aspect-ratio: 0.6/1) {
+    .cardWrapper {
+        font-size: calc(2.25 * 1.75rem);
+    }
 }

@@ -27,6 +27,15 @@
     color: inherit;
 }
 
+.beta {
+    display: flex;
+    position: absolute;
+    margin-top: 1.85rem;
+    margin-left: 5.4rem;
+    justify-content: center;
+    color: blue
+}
+
 .menuRow {
     height: 100%;
     display: flex;
@@ -54,4 +63,23 @@ a:hover,
 a:active {
     color: inherit;
     text-decoration: inherit;
+}
+
+@media screen and (max-aspect-ratio: 0.6/1) {
+    .title {
+        font-size: calc(3 * 3rem);
+    }
+
+    .subtitle {
+        font-size: calc(1.2 * 2rem);
+        margin-top: -2rem;
+    }
+
+    .menuElement {
+        font-size: calc(2.2 * 2rem);
+    }
+    .beta {
+        font-size: calc(1rem);
+        display: none; /* um, eto... bleh! */
+    }
 }

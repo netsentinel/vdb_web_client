@@ -18,7 +18,7 @@
 
 @media (orientation: portrait) {
     .authWrapper {
-        width: 100%;
+        width: 90%;
         max-width: 100%;
     }
 }
@@ -81,4 +81,19 @@
     opacity: 1;
     transform: translateX(0);
     transition: opacity 300ms, transform 300ms;
+}
+
+@media screen and (max-aspect-ratio: 0.6/1) {
+    .authWrapper {
+        font-size: calc(2.5 * 2rem);
+    }
+    .credentialsInput {
+        font-size: calc(2.5 * 2rem);
+    }
+    .credentialsLabel{
+        font-size: calc(2.5 * 2rem);
+    }
+    .authSubmit{
+        font-size: calc(3 * 2rem);
+    }
 }

@@ -24,6 +24,10 @@ export default class UrlHelper {
         this.getApiBaseUrl(),
         endpoints.backend.connectionControllerPath);
 
+    public static getNodesUrl = () => urlJoin(
+        this.getConnectionUrl(),
+        "/nodes-list");
+
     public static getDeviceUrl = () => urlJoin(
         this.getApiBaseUrl(),
         endpoints.backend.deviceControllerPath);

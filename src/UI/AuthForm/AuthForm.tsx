@@ -27,13 +27,21 @@ const AuthForm: React.FC = () => {
         if (EnvHelper.isDebugMode())
             setErrorMessage("Test erorr message");
 
-            let passError = ValidationHelper.ValidatePasswordAndGetError(password);
-            if(passError){
-                console.info("Password failed client-side validation.");
-                setErrorMessage(passError);
-                setSubmitEnabled(true);
-                return;
-            }
+        let emailError = ValidationHelper.ValidateEmailAndGetError(email);
+        if(emailError){
+            console.info("Email failed client-side validation.");
+            setErrorMessage(emailError);
+            setSubmitEnabled(true);
+            return;
+        }
+
+        let passError = ValidationHelper.ValidatePasswordAndGetError(password);
+        if (passError) {
+            console.info("Password failed client-side validation.");
+            setErrorMessage(passError);
+            setSubmitEnabled(true);
+            return;
+        }
 
         if (!EnvHelper.isDebugMode()) {
             setSubmitEnabled(false);
@@ -76,7 +84,7 @@ const AuthForm: React.FC = () => {
         else {
             console.info("Redirecting to personal...");
             navigate("/personal");
-            //window.location.reload(); // not really needed ?
+            window.location.reload(); // not really needed ? no! Its needed to refresh links! in header, at least
         }
 
         setSubmitEnabled(true);
@@ -102,12 +110,15 @@ const AuthForm: React.FC = () => {
                 </span>
                 <span className={cl.credentialsLabel}>Email</span>
                 <input
+                    onKeyUp={e=> {if(e.key.toLowerCase() === "enter") onSubmit();}}
+                    onDragEnter={onSubmit}
                     type={"email"}
                     placeholder="Email"
                     value={email} onChange={(e) => setEmail(e.target.value)}
                     className={cl.credentialsInput} />
                 <span className={cl.credentialsLabel}>Password</span>
                 <input
+                    onKeyUp={e=> {if(e.key.toLowerCase() === "enter") onSubmit();}}
                     type={"password"}
                     placeholder="Password"
                     value={password} onChange={(e) => setPassword(e.target.value)}

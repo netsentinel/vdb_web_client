@@ -56,6 +56,7 @@ const VdbSecurity: React.FC = () => {
             return;
         }
 
+        setShowPass(false);
         let success = await new UserApiHelper()
             .changePassword(passwordInput);
 

@@ -99,15 +99,16 @@ currentStatusPhrase::first-line{
     transform: translateX(0);
     transition: opacity 300ms, transform 300ms;
 }
-/* not needed
-.welcomeTransitionExit{
-    opacity: 1;
-    transform: translateX(0);
-}
 
-.welcomeTransitionExitActive{
-    opacity: 0;
-    transform: translateX(-5rem);
-    transition: opacity 200ms, transform 200ms;
+
+@media screen and (max-aspect-ratio: 0.6/1) {
+    .welcomeWord{
+        font-size: calc(3 * 6rem);
+    }
+    .welcomeDecriptionPhrase{
+        font-size: calc(3 * 1.75rem);
+    }
+    .currentStatusPhrase{
+        font-size: calc(2 * 3rem); 
+    }
 }
-*/

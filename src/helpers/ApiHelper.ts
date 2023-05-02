@@ -16,7 +16,7 @@ export default class ApiHelper {
 
     public static getNodesList = async () => {
         try {
-            var response = await axios.get<IPublicNodeInfo[]>(UrlHelper.getConnectionUrl());
+            var response = await axios.get<IPublicNodeInfo[]>(UrlHelper.getNodesUrl());
         } catch (e: any) {
             console.error("Failed to remove device.");
             if (e["response"]["status"]) {

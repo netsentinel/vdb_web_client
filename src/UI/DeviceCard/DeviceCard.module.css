@@ -1,4 +1,4 @@
-.cardWrapper{
+.cardWrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -11,42 +11,45 @@
     font-size: 1.5rem;
 }
 
-.card{
+.card {
     border: 2px solid black;
     border-radius: 0;
     pad: .3rem;
     font-size: inherit;
 }
 
-.pkSpan{
+.pkSpan {
     display: inline-flex;
     box-sizing: border-box;
-    overflow-x:hidden;
+    overflow-x: hidden;
     text-overflow: ellipsis;
     flex-wrap: nowrap;
     font-size: inherit;
 }
-.removeWrapper{
+
+.removeWrapper {
     display: inherit;
     align-self: center;
     flex-direction: column;
     font-size: inherit;
 }
 
-.errorMsg{
+.errorMsg,
+.commonMsg {
     display: inherit;
     align-self: center;
-    color:darkred;
-    font-size: 1.25rem;
-}
-.commonMsg{
-    display: inherit;
-    align-self: center;
-    color:darkgreen;
     font-size: 1.25rem;
 }
 
-.removeButton{
+.errorMsg {
+    color: darkred;
+}
+
+.commonMsg {
+    color: darkgreen;
+}
+
+.removeButton {
     display: flex;
     justify-content: center;
     font-family: inherit;
@@ -55,36 +58,57 @@
     border: 0px;
     border-radius: 0px;
     background-color: black;
-    color:white;
+    color: white;
     cursor: pointer;
 }
 
-@media (orientation:landscape){
-    .cardWrapper{
+@media (orientation:landscape) {
+    .cardWrapper {
         flex-direction: row;
     }
-    .removeWrapper{
+
+    .removeWrapper {
         align-self: center;
     }
 }
-@media (orientation:portrait){
-    .cardWrapper{
+
+@media (orientation:portrait) {
+    .cardWrapper {
         flex-direction: column;
     }
-    .removeButton{
+
+    .removeButton {
         padding: 1rem;
     }
-    .removeWrapper{
+
+    .removeWrapper {
         align-self: unset;
         width: 100%;
     }
 }
 
-.col{
+.col {
     display: flex;
     flex-direction: column;
 }
-.row{
+
+.row {
     display: flex;
     flex-direction: row;
+}
+
+
+@media screen and (max-aspect-ratio: 0.6/1) {
+    .cardWrapper {
+        font-size: calc(2.25 * 1.5rem);
+    }
+
+    .errorMsg,
+    .commonMsg {
+        font-size: calc(2 * 1.25rem);
+    }
+
+    .removeButton {
+        font-size: calc(3 * 1rem);
+    }
 }
