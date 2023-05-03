@@ -39,14 +39,14 @@ export default class GlobalContext {
         return value ? parseInt(value) : undefined;
     }
 
-    public static logout = () =>{
+    public static logout = () => {
         console.info("Logging out: removing user info...")
 
         localStorage.removeItem(this.accessTokenName);
         localStorage.removeItem(this.accessTokenExpDateName);
 
         this.currentUser = undefined;
-        this.lastLoadedAccessJwt =  this.refreshJwtExpires = null;
+        this.lastLoadedAccessJwt = this.refreshJwtExpires = null;
     }
-    
+
 }

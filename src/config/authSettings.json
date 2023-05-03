@@ -1,8 +1,8 @@
 {
-    "passwordMustContainDigits":true, 
-    "passwordMustContainLowerCase":true,
-    "passwordMustContainUpperCase":true,
-    "passwordMinLength":6,
-    "passwordMaxLength":128,
-    "emailMaxLength":50
+    "passwordMustContainDigits": true,
+    "passwordMustContainLowerCase": true,
+    "passwordMustContainUpperCase": true,
+    "passwordMinLength": 6,
+    "passwordMaxLength": 128,
+    "emailMaxLength": 50
 }

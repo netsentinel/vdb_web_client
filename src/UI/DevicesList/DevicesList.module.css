@@ -1,27 +1,27 @@
-.deviceListWrapper{
+.deviceListWrapper {
     display: flex;
     flex-direction: column;
     margin: 0;
 }
 
-.welcomeTransitionEnter{
+.welcomeTransitionEnter {
     opacity: 0;
     transform: translateX(-5rem);
 }
 
-.welcomeTransitionEnterActive{
+.welcomeTransitionEnterActive {
     opacity: 1;
     transform: translateX(0);
     transition: opacity 800ms, transform 800ms;
 }
 
 
-.noNodesMsg{
+.noNodesMsg {
     font-size: 1.5rem;
 }
 
 @media screen and (max-aspect-ratio: 0.6/1) {
-    .noNodesMsg{
+    .noNodesMsg {
         font-size: calc(2 * 1.5rem);
     }
 }

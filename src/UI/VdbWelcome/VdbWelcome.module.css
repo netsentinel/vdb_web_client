@@ -1,10 +1,10 @@
-.welcomeWrapper{
+.welcomeWrapper {
     display: flex;
     flex-direction: column;
     margin: 1rem;
 }
 
-.welcomeRow{
+.welcomeRow {
     display: inherit;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -12,7 +12,7 @@
     margin-bottom: 4rem;
 }
 
-.welcomWords{
+.welcomWords {
     display: inherit;
     flex-direction: column;
 }
@@ -24,61 +24,69 @@
     transform: inherit;
     font-size: 6rem;
     flex-wrap: nowrap;
-    opacity: 0; /*initial*/
+    opacity: 0;
+    /*initial*/
 }
 
 
-.welcomeDescription{
+.welcomeDescription {
     display: inherit;
     flex-direction: column;
 }
 
-.welcomeDecriptionPhrase{
+.welcomeDecriptionPhrase {
     max-width: 600px;
     display: inherit;
     flex-direction: column;
     word-wrap: break-word;
     font-size: 1.75rem;
     margin-top: 2.5rem;
-    opacity: 0; /*initial*/
+    opacity: 0;
+    /*initial*/
 }
 
 @media (orientation: landscape) {
     .welcomeRow {
         flex-wrap: nowrap;
     }
-    .welcomeDecriptionPhrase{
+
+    .welcomeDecriptionPhrase {
         max-width: calc(600px - 5rem);
     }
-}   
+}
 
 @media (orientation: portrait) {
     .welcomeRow {
         flex-wrap: wrap;
     }
-    .welcomeDecriptionPhrase{
+
+    .welcomeDecriptionPhrase {
         max-width: 100%;
     }
 }
 
-.activeNodes{
+.activeNodes {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    opacity: 0; /*initial*/
+    opacity: 0;
+    /*initial*/
 }
 
-.currentStatusPhrase{
-    font-size: 3rem; 
-    opacity: 0; /*initial*/
+.currentStatusPhrase {
+    font-size: 3rem;
+    opacity: 0;
+    /*initial*/
 }
-currentStatusPhrase::first-line{
+
+currentStatusPhrase::first-line {
     text-transform: lowercase;
 }
 
-.nodesList{
+.nodesList {
     display: flex;
-    opacity: 0; /*initial*/
+    opacity: 0;
+    /*initial*/
 }
 
 
@@ -89,12 +97,12 @@ currentStatusPhrase::first-line{
 
 
 
-.welcomeTransitionEnter{
+.welcomeTransitionEnter {
     opacity: 0;
     transform: translateX(-5rem);
 }
 
-.welcomeTransitionEnterActive{
+.welcomeTransitionEnterActive {
     opacity: 1;
     transform: translateX(0);
     transition: opacity 300ms, transform 300ms;
@@ -102,13 +110,15 @@ currentStatusPhrase::first-line{
 
 
 @media screen and (max-aspect-ratio: 0.6/1) {
-    .welcomeWord{
+    .welcomeWord {
         font-size: calc(3 * 6rem);
     }
-    .welcomeDecriptionPhrase{
+
+    .welcomeDecriptionPhrase {
         font-size: calc(3 * 1.75rem);
     }
-    .currentStatusPhrase{
-        font-size: calc(2 * 3rem); 
+
+    .currentStatusPhrase {
+        font-size: calc(2 * 3rem);
     }
 }

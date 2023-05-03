@@ -1,39 +1,41 @@
-.downloadWrapper{
+.downloadWrapper {
     display: flex;
     margin: 1rem;
     flex-direction: column;
-    opacity: 0; /*initial*/
+    opacity: 0;
+    /*initial*/
 }
 
-.textSpan{
+.textSpan {
     display: inherit;
     align-self: flex-end;
     font-size: 3rem;
 }
 
-.goToReleaseButton{
+.goToReleaseButton {
     display: inherit;
     padding: .1rem 1rem;
     margin-top: 1rem;
     font-size: 2rem;
     box-sizing: border-box;
     align-self: flex-end;
-    color:white;
+    color: white;
     background-color: black;
     border: 0px;
-    opacity: 0; /*initial*/
+    opacity: 0;
+    /*initial*/
 }
 
-.goToReleaseButton:hover{
-    cursor:pointer;
+.goToReleaseButton:hover {
+    cursor: pointer;
 }
 
-.welcomeTransitionEnter{
+.welcomeTransitionEnter {
     opacity: 0;
     transform: translateX(-5rem);
 }
 
-.welcomeTransitionEnterActive{
+.welcomeTransitionEnterActive {
     opacity: 1;
     transform: translateX(0);
     transition: opacity 300ms, transform 300ms;
@@ -43,7 +45,8 @@
     .textSpan {
         font-size: calc(2 * 3rem);
     }
-    .goToReleaseButton{
+
+    .goToReleaseButton {
         font-size: calc(1.75 * 2rem);
     }
 }

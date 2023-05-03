@@ -22,7 +22,10 @@ const ActiveNodeCard: React.FC<IPublicNodeInfo> = (props) => {
         <span className={cl.cardWrapper}>
             <span className={props.isActive ? cl.cardActive : cl.cardInactive}>
                 <span className={cl.nodeName}><strong>{capitalize(props.name)}</strong></span>
-                &nbsp;&nbsp;Connections: {props.clientsConnected}
+                {props.clientsConnected
+                    ? <span>&nbsp;&nbsp;Connections: {props.clientsConnected}</span>
+                    : <span />
+                }
             </span>
         </span>
     );

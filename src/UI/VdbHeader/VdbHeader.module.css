@@ -78,8 +78,10 @@ a:active {
     .menuElement {
         font-size: calc(2.2 * 2rem);
     }
+
     .beta {
         font-size: calc(1rem);
-        display: none; /* um, eto... bleh! */
+        display: none;
+        /* um, eto... bleh! */
     }
 }

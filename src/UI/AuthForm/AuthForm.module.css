@@ -14,7 +14,7 @@
         width: 600px;
         max-width: 600px;
     }
-}   
+}
 
 @media (orientation: portrait) {
     .authWrapper {
@@ -23,7 +23,7 @@
     }
 }
 
-.authHeader{
+.authHeader {
     display: inherit;
     align-self: center;
 }
@@ -39,22 +39,22 @@
     background-color: aliceblue;
 }
 
-.credentialsLabel{
+.credentialsLabel {
     display: inherit;
     font-size: 2rem;
     margin-top: 2rem;
 }
 
-.errorWrapper{
+.errorWrapper {
     width: 100%;
     border: 1px solid red;
-    background-color: rgb(255,240,240);
+    background-color: rgb(255, 240, 240);
     border-radius: 3px;
     padding: 1rem;
     margin-top: .5rem;
 }
 
-.authSubmit{
+.authSubmit {
     display: inherit;
     font-size: inherit;
     font-family: inherit;
@@ -65,19 +65,20 @@
 
     border: 0;
     border-radius: 0;
-    color:white;
+    color: white;
     background-color: black;
 }
-.authSubmit:hover{
+
+.authSubmit:hover {
     cursor: pointer;
 }
 
-.welcomeTransitionEnter{
+.welcomeTransitionEnter {
     opacity: 0;
     transform: translateX(-5rem);
 }
 
-.welcomeTransitionEnterActive{
+.welcomeTransitionEnterActive {
     opacity: 1;
     transform: translateX(0);
     transition: opacity 300ms, transform 300ms;
@@ -87,13 +88,16 @@
     .authWrapper {
         font-size: calc(2.5 * 2rem);
     }
+
     .credentialsInput {
         font-size: calc(2.5 * 2rem);
     }
-    .credentialsLabel{
+
+    .credentialsLabel {
         font-size: calc(2.5 * 2rem);
     }
-    .authSubmit{
+
+    .authSubmit {
         font-size: calc(3 * 2rem);
     }
 }

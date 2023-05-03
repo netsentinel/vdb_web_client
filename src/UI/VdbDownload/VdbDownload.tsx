@@ -10,9 +10,9 @@ const VdbDownload: React.FC = () => {
     const [releaseTransState, setReleaseTransState] = useState(false);
     const [dotnetTransState, setDotnetTransState] = useState(false);
     useEffect(() => {
-        setTimeout(()=> setTransState(true),0);
-        setTimeout(()=> setReleaseTransState(true),200);
-        setTimeout(()=> setDotnetTransState(true),400);
+        setTimeout(() => setTransState(true), 0);
+        setTimeout(() => setReleaseTransState(true), 200);
+        setTimeout(() => setDotnetTransState(true), 400);
     }, []);
 
 
