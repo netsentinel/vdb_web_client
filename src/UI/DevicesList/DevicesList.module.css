@@ -15,3 +15,13 @@
     transition: opacity 800ms, transform 800ms;
 }
 
+
+.noNodesMsg{
+    font-size: 1.5rem;
+}
+
+@media screen and (max-aspect-ratio: 0.6/1) {
+    .noNodesMsg{
+        font-size: calc(2 * 1.5rem);
+    }
+}

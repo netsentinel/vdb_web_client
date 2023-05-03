@@ -28,7 +28,7 @@ const AuthForm: React.FC = () => {
             setErrorMessage("Test erorr message");
 
         let emailError = ValidationHelper.ValidateEmailAndGetError(email);
-        if(emailError){
+        if (emailError) {
             console.info("Email failed client-side validation.");
             setErrorMessage(emailError);
             setSubmitEnabled(true);
@@ -61,7 +61,13 @@ const AuthForm: React.FC = () => {
                 let status = AuthHelper.lastStatus;
                 let selectedError: string;
 
-                if (status === 400)
+                if (status === 200) {
+                    console.info("Redirecting to personal...");
+                    navigate("/personal");
+                    window.location.reload(); // not really needed ? no! Its needed to refresh links! in header, at least
+                    return;
+                }
+                else if (status === 400)
                     selectedError = "Problem on client side. Please reload window.";
                 else if (status === 401)
                     selectedError = "Wrong password.";
@@ -110,7 +116,7 @@ const AuthForm: React.FC = () => {
                 </span>
                 <span className={cl.credentialsLabel}>Email</span>
                 <input
-                    onKeyUp={e=> {if(e.key.toLowerCase() === "enter") onSubmit();}}
+                    onKeyUp={e => { if (e.key.toLowerCase() === "enter") onSubmit(); }}
                     onDragEnter={onSubmit}
                     type={"email"}
                     placeholder="Email"
@@ -118,7 +124,7 @@ const AuthForm: React.FC = () => {
                     className={cl.credentialsInput} />
                 <span className={cl.credentialsLabel}>Password</span>
                 <input
-                    onKeyUp={e=> {if(e.key.toLowerCase() === "enter") onSubmit();}}
+                    onKeyUp={e => { if (e.key.toLowerCase() === "enter") onSubmit(); }}
                     type={"password"}
                     placeholder="Password"
                     value={password} onChange={(e) => setPassword(e.target.value)}

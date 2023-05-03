@@ -52,7 +52,7 @@ const DevicesList: React.FC = () => {
             <span className={[cl.deviceListWrapper].join(' ')}>
                 {(devices && devices.length > 0)
                     ? devices.map(x => <DeviceCard {...x} key={x.Id} />)
-                    : <span className={[cl.WarningText].join(' ')}>
+                    : <span className={[cl.noNodesMsg].join(' ')}>
                         You have no devices.
                     </span>}
             </span>
