@@ -33,8 +33,6 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.module.css",
-    "declaration.d.ts",
-    "src/models/postsInfoResponse",
-    "src/models/postsInfoResponse"
+    "declaration.d.ts"
   ]
 }

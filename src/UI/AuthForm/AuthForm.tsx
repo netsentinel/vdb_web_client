@@ -12,12 +12,17 @@ import RegistrationRequest from '../../models/Auth/RegistrationRequest';
 import ValidationHelper from '../../helpers/ValidationHelper';
 
 const AuthForm: React.FC = () => {
+    const navigate = useNavigate();
+    if (GlobalContext.currentUser !== undefined &&
+        (!EnvHelper.isDebugMode() || EnvHelper.isProduction())) {
+        navigate("/personal");
+    }
+
     const [transState, setTransState] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [submitEnabled, setSubmitEnabled] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
-    const navigate = useNavigate();
 
     useEffect(() => {
         setTransState(true);

@@ -7,11 +7,15 @@ import AuthHelper from './helpers/AuthHelper';
 import EnvHelper from './helpers/EnvHelper';
 
 function App() {
-  axios.defaults.withCredentials = true;
-  axios.defaults.timeout = 5000;
-  AuthHelper.EnsureUserInContext();
+  console.info(`Is debug mode: ${EnvHelper.isDebugMode()}`);
 
-  console.info(`Is debug mode: ${EnvHelper.isDebugMode()}`)
+  axios.defaults.withCredentials = true;
+  if (EnvHelper.isDebugMode()) {
+    axios.defaults.timeout = 360 * 1000;
+  } else {
+    axios.defaults.timeout = 5000;
+  }
+  AuthHelper.EnsureUserInContext();
 
   return (
     <span className={cl.wrapper}>

@@ -23,15 +23,22 @@ const VdbSecurity: React.FC = () => {
     const [terminateButtonEnabled, setTerminateButtonEnabled] = useState(true);
     const [passButtonEnabled, setPassButtonEnabled] = useState(true);
     const [showPass, setShowPass] = useState(false);
-    const navigate = useNavigate()
+    const [isPasswordType, setIsPasswordType] = useState(true);
+    const navigate = useNavigate();
 
-
-    useEffect(() => {
+    useEffect(function callback() {
         setTransState(true);
 
         new UserApiHelper()
             .getUserSessions().then(r => setSessions(r));
+
+        /* // ! Initially we let the browser there will be the password,
+         * // ! after that, disable.
+         * // ! https://stackoverflow.com/a/22457652/11325184
+        */
+        setIsPasswordType(false);
     }, []);
+
 
     const terminateOthers = async () => {
         setTerminateButtonEnabled(false);
@@ -56,17 +63,19 @@ const VdbSecurity: React.FC = () => {
             return;
         }
 
-        setShowPass(false);
+        setIsPasswordType(true); // !
         let success = await new UserApiHelper()
             .changePassword(passwordInput);
 
         setPassErrorMessage("");
         if (success) {
             setPassOkMessage("Your password was changed.");
+            //navigate("/auth");
             window.location.reload(); // needed for browser to offer password remember!
         }
         else {
             setPassErrorMessage("We was unable to change your password.");
+            setIsPasswordType(false); // !
         }
     }
 
@@ -112,25 +121,33 @@ const VdbSecurity: React.FC = () => {
                     </span>
                     : <span />
                 }
-                <span className={cl.menuWrapper}>
+                
+                {
+                    // ! Since non of the ways helped to disable unneeded 'save password' prompt here,
+                    // ! this span is totaly disabled.
+                }
+                <span className={cl.menuWrapper} style={{ display: "none" }} hidden={true}>
                     <input
-                        className={[clp.loggedAs, cl.newPasswordInput].join(" ")}
+                        // https://stackoverflow.com/a/22457652/11325184
+                        className={[clp.loggedAs, (showPass || !passwordInput) ? cl.newPasswordInput : cl.newPasswordInputHidden].join(" ")}
                         placeholder="new password"
                         value={passwordInput}
                         onChange={e => setPasswordInput(e.target.value)}
-                        type={showPass ? "text" : "password"}
-                        autoComplete="new-password" //https://stackoverflow.com/a/46452284/11325184
+                        type={isPasswordType ? "password" : "text"}
+                        autoComplete="new-password"
                     />
                     <button
                         className={[clp.logoutBtn, cl.hideShowBtn].join(' ')}
                         onClick={() => setShowPass(!showPass)}
-                        disabled={!passButtonEnabled}>
+                        disabled={!passButtonEnabled}
+                        type="button">
                         {showPass ? "HIDE" : "SHOW"}
                     </button>
                     <button
                         className={clp.logoutBtn}
                         onClick={setPassword}
-                        disabled={!passButtonEnabled}>
+                        disabled={!passButtonEnabled}
+                        type="button">
                         SET PASSWORD
                     </button>
                 </span>

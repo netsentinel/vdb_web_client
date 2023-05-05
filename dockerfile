@@ -6,7 +6,8 @@ FROM node:19-alpine as build
 WORKDIR /app
 
 COPY ./package.json ./package.json
-RUN npm i --no-audit --no-package-lock --force
+COPY ./package-lock.json ./package-lock.json
+RUN npm i
 
 COPY ./src ./src
 COPY ./typings ./typings

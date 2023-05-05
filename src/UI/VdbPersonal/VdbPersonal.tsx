@@ -13,15 +13,16 @@ import EnvHelper from '../../helpers/EnvHelper';
 
 const VdbPersonal: React.FC = () => {
     const navigate = useNavigate();
-    const [transState, setTransState] = useState(false);
-    useEffect(() => {
-        setTimeout(() => setTransState(true), 0);
-    }, []);
-
     if (GlobalContext.currentUser == undefined &&
         (!EnvHelper.isDebugMode() || EnvHelper.isProduction())) {
         navigate("/auth");
     }
+
+
+    const [transState, setTransState] = useState(false);
+    useEffect(() => {
+        setTimeout(() => setTransState(true), 0);
+    }, []);
 
     const logout = async () => {
         await new UserApiHelper().terminateThisSession();

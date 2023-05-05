@@ -66,11 +66,21 @@ export default class AuthHelper {
         const curr = GlobalContext.currentUser;
 
         if (curr) { // loaded user already exists
+            const lifespanSecs = (curr.exp - curr.nbf);
             // 10% of JWT lifespan
-            const minimumMilliseconds = (curr.exp - curr.nbf) / 10 * 1000;
+            const minimumMilliseconds = lifespanSecs / 10 * 1000;
             const currExpMs = curr.exp * 1000;
 
+            console.info(`Access token lifespan is ${Math.round(lifespanSecs)} seconds.`);
+            const currTimeSec = Date.now() / 1000;
+            const timeLeft = curr.exp - currTimeSec;
+            const percentLeft = (timeLeft) / (lifespanSecs) * 100;
+            console.info(`Currently time left: ${timeLeft > 0 ? Math.round(timeLeft) : 0} seconds`
+                + ` (${Math.round(percentLeft > 0 ? Math.round(percentLeft) : 0)}%).`);
+
+
             if (currExpMs < Date.now()) { // token expired
+                GlobalContext.logout();
                 console.info("Access token already loaded, but expired. Refreshing...");
                 try { await this.PerformRefreshAsync(); }
                 catch { return false; }
@@ -88,21 +98,23 @@ export default class AuthHelper {
         }
 
         // no current user, try to load from localstorage
+        console.info("Loading token from local storage...");
         const jwt = GlobalContext.getAccessJwtFromStorage();
         if (jwt && AuthHelper.ParseAccessJwtAndUpdateContext(jwt)) {
-            console.info("Loading token from local storage...");
             return await this.EnsureUserInContext();
+        } else if (jwt) {
+            console.info("Access token found, but validation failed. Refreshing...");
+            let result: boolean = false;
+            try {
+                if (await AuthHelper.PerformRefreshAsync()) {
+                    result = true;
+                }
+            } catch { }
+            return result;
         }
 
-        // no current user and no JWT found in storage
-        console.info("No access token found. Refreshing...");
-        let result: boolean = false;
-        try {
-            if (await AuthHelper.PerformRefreshAsync()) {
-                result = true;
-            }
-        } catch { }
-        return result;
+        console.info("No access token found.");
+        return false;
     }
 
     // !reviewed 3 apr 2023
