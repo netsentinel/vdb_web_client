@@ -20,6 +20,10 @@ export default class UrlHelper {
         this.getApiBaseUrl(),
         endpoints.backend.authControllerPath);
 
+    public static getRefreshUrl = () => urlJoin(
+        this.getAuthUrl(),
+        "/refresh");
+
     public static getConnectionUrl = () => urlJoin(
         this.getApiBaseUrl(),
         endpoints.backend.connectionControllerPath);
@@ -27,7 +31,7 @@ export default class UrlHelper {
     public static getDeviceUrl = () => urlJoin(
         this.getApiBaseUrl(),
         endpoints.backend.deviceControllerPath);
-      
+
     public static getNodesUrl = () => urlJoin(
         this.getConnectionUrl(),
         "/nodes-list");

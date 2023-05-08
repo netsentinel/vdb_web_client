@@ -98,16 +98,17 @@ currentStatusPhrase::first-line {
 .myLink {
     color: black;
     text-decoration: underline 1px solid black;
-    font-weight: 500;
+    font-weight: 400;
     font-size: inherit;
+    overflow-wrap: break-word;
 }
 
-.outerText{
+.outerText {
     margin: 1rem;
-    display: flex;
+    display: inline-flex;
     width: 100%;
     justify-content: center;
-    color:lightgray;
+    color: lightgray;
     font-size: 1rem;
 }
 
@@ -145,8 +146,14 @@ currentStatusPhrase::first-line {
         font-size: calc(2 * 1.75rem);
     }
 
-    .outerText{
+    .outerText {
         font-size: calc(2 * 1rem);
+    }
+
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
     }
 }
 

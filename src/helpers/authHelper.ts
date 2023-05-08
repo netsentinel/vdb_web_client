@@ -172,7 +172,7 @@ export default class AuthHelper {
         this._lastStatus = 0;
 
         try {
-            var response = await axios.patch<IJwtAuthResponse>(UrlHelper.getAuthUrl());
+            var response = await axios.patch<IJwtAuthResponse>(UrlHelper.getRefreshUrl());
         } catch (e: any) {
             console.error("Failed to refresh tokens.");
             let code = e["response"]["status"];

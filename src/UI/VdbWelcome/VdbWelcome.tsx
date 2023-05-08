@@ -131,8 +131,8 @@ const VdbWelcome: React.FC = () => {
                         VPN Servers
                     </p>
                     <p style={{ marginLeft: "2.75rem" }}>
-                        -&gt;&nbsp;
-                        <a style={{ fontWeight: "400" }}
+                        
+                        <a
                             href="https://github.com/LuminoDiode/rest2wireguard"
                             className={cl.myLink}>
                             github.com/LuminoDiode/rest2wireguard
@@ -142,8 +142,8 @@ const VdbWelcome: React.FC = () => {
                         Main Server
                     </p>
                     <p style={{ marginLeft: "2.75rem" }}>
-                        -&gt;&nbsp;
-                        <a style={{ fontWeight: "400" }}
+                        
+                        <a 
                             href="https://github.com/LuminoDiode/vdb_main_server"
                             className={cl.myLink}>
                             github.com/LuminoDiode/vdb_main_server
@@ -153,8 +153,8 @@ const VdbWelcome: React.FC = () => {
                         Web Client
                     </p>
                     <p style={{ marginLeft: "2.75rem" }}>
-                        -&gt;&nbsp;
-                        <a style={{ fontWeight: "400" }}
+                        
+                        <a 
                             href="https://github.com/LuminoDiode/vdb_web_client"
                             className={cl.myLink}>
                             github.com/LuminoDiode/vdb_web_client
@@ -164,8 +164,8 @@ const VdbWelcome: React.FC = () => {
                         Dekstop App
                     </p>
                     <p style={{ marginLeft: "2.75rem" }}>
-                        -&gt;&nbsp;
-                        <a style={{ fontWeight: "400" }}
+                        
+                        <a 
                             href="https://github.com/LuminoDiode/vdb_desktop_client"
                             className={cl.myLink}>
                             github.com/LuminoDiode/vdb_desktop_client
