@@ -1,7 +1,7 @@
 export default interface IUserDevice {
-    Id: number;
-    UserId: number;
-    WireguardPublicKey: string;
-    LastConnectedNodeId: number | null;
-    LastSeenUtc: string | null;
+    id: number;
+    userId: number;
+    wireguardPublicKey: string;
+    lastConnectedNodeId: number | null;
+    lastSeenUtc: string | null;
 }

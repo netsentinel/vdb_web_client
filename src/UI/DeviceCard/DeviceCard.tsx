@@ -12,11 +12,10 @@ const DeviceCard: React.FC<IUserDevice> = (props) => {
     const [errorMsg, setErrorMsg] = useState("");
     const [commonMsg, setCommonMsg] = useState("");
 
-    const id = props.Id;
-    const pk = props.WireguardPublicKey;
-    const lastNode = props.LastConnectedNodeId;
-    const lastSeen = props.LastSeenUtc;
-    const pkDisplayed = pk.substring(0, 3) + "..." + pk.substring(pk.length - 1 - 3);
+    const id = props.id;
+    const pk = props.wireguardPublicKey;
+    const lastNode = props.lastConnectedNodeId;
+    const lastSeen = props.lastSeenUtc;
 
     const onDelete = async () => {
         console.log("Disabling remove button...");
@@ -34,7 +33,6 @@ const DeviceCard: React.FC<IUserDevice> = (props) => {
             setErrorMsg("Unable to remove device.");
         }
 
-
         console.log("Enabling remove button...");
         setInterval(() => setButtonDisabled(false), 5000);
     }
@@ -44,16 +42,16 @@ const DeviceCard: React.FC<IUserDevice> = (props) => {
     }
 
     return (
-        <span className={[cl.cardWrapper].join(' ')}>
+        <span className={[cl.cardWrapper].join(' ')} key={props.id}>
             <span className={cl.col}>
                 <span className={cl.pkSpan}>
-                    <strong>Key:</strong> {pk}
+                    <strong>Key:</strong>&nbsp;{pk ?? "unknown"}
                 </span>
                 <span>
-                    <strong>Last seen:</strong> {lastSeen}
+                    <strong>Last seen:</strong>&nbsp;{lastSeen?.split('.')[0].split('T').join(' ') ?? "never"}
                 </span>
                 <span>
-                    <strong>Last node:</strong> {lastNode}
+                    <strong>Last node:</strong>&nbsp;{lastNode ?? "none"}
                 </span>
             </span>
             <span className={cl.removeWrapper}>

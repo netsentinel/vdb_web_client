@@ -58,7 +58,8 @@ export default class UserApiHelper {
         }
 
         console.info("Loaded devices. Ids: "
-            + `${response.data.length > 0 ? response.data.map(x => x.Id).join(' ') : "none"}.`);
+            + `${response.data.length > 0 ? response.data.map(x => x.id).join(' ') : "none"}. `
+            + `Count: ${response.data.length}.`);
         this._lastStatus = response.status;
         return response.data;
     }
