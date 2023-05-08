@@ -5,13 +5,17 @@ import IUserDevice from '../../models/Device/IUserDevice';
 import UserApiHelper from '../../helpers/UserApiHelper';
 import DeviceCard from '../DeviceCard/DeviceCard';
 import { CSSTransition } from 'react-transition-group';
+import ApiHelper from '../../helpers/ApiHelper';
+import GlobalContext from '../../helpers/GlobalContext';
+import IUserInfoFromJwt from '../../models/Auth/IUserInfoFromJwt';
 
 const DevicesList: React.FC = () => {
     const [devices, setDevices] = useState<IUserDevice[]>();
 
     useMemo(() => {
-        if (!devices) new UserApiHelper()
-            .getUserDevices().then(
+        var helper = new UserApiHelper();
+        if (!devices) {
+            helper.getUserDevices().then(
                 d => {
                     if (d && d.length > 0) {
                         setDevices(d);
@@ -35,6 +39,7 @@ const DevicesList: React.FC = () => {
                     }
                 }
             );
+        }
     }, []);
 
     const [transState, setTransState] = useState(false);

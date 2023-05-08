@@ -11,6 +11,11 @@
     font-size: 3rem;
     margin-top: 1rem;
 }
+.personalSubText {
+    font-family: inherit;
+    font-size: 1rem;
+    margin-top: -0.5rem;
+}
 
 .loggedAs {
     font-family: inherit;
@@ -52,6 +57,10 @@
 
     .personalText {
         font-size: calc(2 * 3rem);
+    }
+
+    .personalSubText{
+        font-size: calc(2 * 1rem);
     }
 
     .logoutBtn {

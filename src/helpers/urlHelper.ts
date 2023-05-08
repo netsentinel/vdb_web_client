@@ -24,22 +24,23 @@ export default class UrlHelper {
         this.getApiBaseUrl(),
         endpoints.backend.connectionControllerPath);
 
-    public static getNodesUrl = () => urlJoin(
-        this.getConnectionUrl(),
-        "/nodes-list");
-
     public static getDeviceUrl = () => urlJoin(
         this.getApiBaseUrl(),
         endpoints.backend.deviceControllerPath);
-
+      
+    public static getNodesUrl = () => urlJoin(
+        this.getConnectionUrl(),
+        "/nodes-list");
     public static getSessionsUrl = () => urlJoin(
         this.getAuthUrl(),
         "/sessions");
-
     public static getCurrentSessionTerminationUrl = () => urlJoin(
         this.getAuthUrl(),
         "/self");
     public static getPasswordPatchUrl = () => urlJoin(
         this.getAuthUrl(),
         "/password");
+    public static getDevicesLimitsUrl = () => urlJoin(
+        this.getDeviceUrl(),
+        "/user-devices-limits");
 }

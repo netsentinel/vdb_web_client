@@ -9,7 +9,6 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
-    margin-bottom: 4rem;
 }
 
 .welcomWords {
@@ -74,6 +73,7 @@
 }
 
 .currentStatusPhrase {
+    margin-top: 4rem;
     font-size: 3rem;
     opacity: 0;
     /*initial*/
@@ -90,8 +90,26 @@ currentStatusPhrase::first-line {
     /*initial*/
 }
 
+.aboutText {
+    font-size: 1.75rem;
+    opacity: 0;
+}
 
+.myLink {
+    color: black;
+    text-decoration: underline 1px solid black;
+    font-weight: 500;
+    font-size: inherit;
+}
 
+.outerText{
+    margin: 1rem;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    color:lightgray;
+    font-size: 1rem;
+}
 
 
 
@@ -122,4 +140,17 @@ currentStatusPhrase::first-line {
     .currentStatusPhrase {
         font-size: calc(2 * 3rem);
     }
+
+    .aboutText {
+        font-size: calc(2 * 1.75rem);
+    }
+
+    .outerText{
+        font-size: calc(2 * 1rem);
+    }
+}
+
+b {
+    font-weight: 400;
+    text-decoration: underline 1px blue;
 }
