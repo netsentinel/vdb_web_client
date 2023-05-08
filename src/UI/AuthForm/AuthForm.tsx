@@ -4,7 +4,7 @@ import GlobalContext from '../../helpers/GlobalContext';
 import { CSSTransition } from 'react-transition-group';
 import { Route, Routes } from "react-router-dom";
 import VdbWelcome from '../VdbWelcome/VdbWelcome';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import EnvHelper from '../../helpers/EnvHelper';
 import AuthHelper from '../../helpers/AuthHelper';
 import authSettings from "../../config/authSettings.json"
@@ -13,11 +13,6 @@ import ValidationHelper from '../../helpers/ValidationHelper';
 
 const AuthForm: React.FC = () => {
     const navigate = useNavigate();
-    if (GlobalContext.currentUser !== undefined &&
-        (!EnvHelper.isDebugMode() || EnvHelper.isProduction())) {
-        navigate("/personal");
-    }
-
     const [transState, setTransState] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -27,7 +22,16 @@ const AuthForm: React.FC = () => {
     useEffect(() => {
         setTransState(true);
     }, []);
+    // useMemo(()=>{
+    //     if (GlobalContext.currentUser !== undefined &&
+    //         (!EnvHelper.isDebugMode() || EnvHelper.isProduction())) {
+    //         navigate("/personal");
+    //     }
+    // },[]);
 
+    const delay = (delayMs: number) => {
+        return new Promise(resolve => setTimeout(resolve, delayMs));
+    }
     const onSubmit = async () => {
         if (EnvHelper.isDebugMode())
             setErrorMessage("Test erorr message");
@@ -68,8 +72,7 @@ const AuthForm: React.FC = () => {
 
                 if (status === 200) {
                     console.info("Redirecting to personal...");
-                    navigate("/personal");
-                    window.location.reload(); // not really needed ? no! Its needed to refresh links! in header, at least
+                    window.location.replace("/personal"); // not really needed ? no! Its needed to refresh links! in header, at least
                     return;
                 }
                 else if (status === 400)
@@ -94,8 +97,8 @@ const AuthForm: React.FC = () => {
         }
         else {
             console.info("Redirecting to personal...");
-            navigate("/personal");
-            window.location.reload(); // not really needed ? no! Its needed to refresh links! in header, at least
+            window.location.replace("/personal");
+            return;
         }
 
         setSubmitEnabled(true);

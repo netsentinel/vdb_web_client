@@ -22,6 +22,7 @@ const VdbPersonal: React.FC = () => {
 
     const [deviceLimits, setDeviceLimit] = useState(0);
     useMemo(() => {
+        console.info("Using memo in personal block...");
         var helper = new UserApiHelper();
         const GetAccessLevel = (user: IUserInfoFromJwt) => {
             if (user.IsAdmin === true) return 3;
