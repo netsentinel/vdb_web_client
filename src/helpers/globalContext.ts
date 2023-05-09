@@ -29,6 +29,17 @@ export default class GlobalContext {
     }
 
 
+    public static GetAccessLevel = () => {
+        if(this.currentUser === undefined) return undefined;
+        let user = this.currentUser;
+
+        if (user.IsAdmin === true) return 3;
+        if (Date.parse(user.PayedUntilUtc) > Date.now()) return 2;
+        if (user.IsEmailConfirmed === true) return 1;
+
+        return 0;
+    };
+
     private static readonly accessTokenExpDateName: string = "refreshExpDate";
 
     public static setRefreshExpInStorage = (refreshExpDate: number) => {

@@ -60,61 +60,81 @@ export default class AuthHelper {
         }
     }
 
+    private static delay = (delayMs: number) => {
+        return new Promise(resolve => setTimeout(resolve, delayMs));
+    }
+    private static IsNowRefreshing: boolean = false;
     // !reviewed 3 apr 2023
     public static EnsureUserInContext = async (): Promise<boolean> => {
-        console.info("Trying to load access token...");
-        const curr = GlobalContext.currentUser;
-
-        if (curr) { // loaded user already exists
-            const lifespanSecs = (curr.exp - curr.nbf);
-            // 10% of JWT lifespan
-            const minimumMilliseconds = lifespanSecs / 10 * 1000;
-            const currExpMs = curr.exp * 1000;
-
-            console.info(`Access token lifespan is ${Math.round(lifespanSecs)} seconds.`);
-            const currTimeSec = Date.now() / 1000;
-            const timeLeft = curr.exp - currTimeSec;
-            const percentLeft = (timeLeft) / (lifespanSecs) * 100;
-            console.info(`Currently time left: ${timeLeft > 0 ? Math.round(timeLeft) : 0} seconds`
-                + ` (${Math.round(percentLeft > 0 ? Math.round(percentLeft) : 0)}%).`);
-
-
-            if (currExpMs < Date.now()) { // token expired
-                GlobalContext.logout();
-                console.info("Access token already loaded, but expired. Refreshing...");
-                try { await this.PerformRefreshAsync(); }
-                catch { return false; }
-                return true;
-            }
-            else if (currExpMs < Date.now() + minimumMilliseconds) { // token will expire soon
-                console.info("Access token already loaded, but wiil expire soon. Refreshing...");
-                try { await this.PerformRefreshAsync(); } catch { }
-                return true;
-            }
-            else { // enough time remains
-                console.info("Access token already loaded.");
-                return true;
-            }
+        let delayCount = 0;
+        while (this.IsNowRefreshing) {
+            if (delayCount++ % 10 === 0) console.warn("EnsureUserInContext is delayed during another call.");
+            if (delayCount > 100) break;
+            await this.delay(100);
         }
+        this.IsNowRefreshing = true;
+        setTimeout(() => this.IsNowRefreshing = false, 1000);
 
-        // no current user, try to load from localstorage
-        console.info("Loading token from local storage...");
-        const jwt = GlobalContext.getAccessJwtFromStorage();
-        if (jwt && AuthHelper.ParseAccessJwtAndUpdateContext(jwt)) {
-            return await this.EnsureUserInContext();
-        } else if (jwt) {
-            console.info("Access token found, but validation failed. Refreshing...");
-            let result: boolean = false;
-            try {
-                if (await AuthHelper.PerformRefreshAsync()) {
-                    result = true;
+        try {
+            console.info("Trying to load access token...");
+            const curr = GlobalContext.currentUser;
+
+            if (curr) { // loaded user already exists
+                const lifespanSecs = (curr.exp - curr.nbf);
+                // 10% of JWT lifespan
+                const minimumMilliseconds = lifespanSecs / 10 * 1000;
+                const currExpMs = curr.exp * 1000;
+
+                console.info(`Access token lifespan is ${Math.round(lifespanSecs)} seconds.`);
+                const currTimeSec = Date.now() / 1000;
+                const timeLeft = curr.exp - currTimeSec;
+                const percentLeft = (timeLeft) / (lifespanSecs) * 100;
+                console.info(`Currently time left: ${timeLeft > 0 ? Math.round(timeLeft) : 0} seconds`
+                    + ` (${Math.round(percentLeft > 0 ? Math.round(percentLeft) : 0)}%).`);
+
+
+                if (currExpMs < Date.now()) { // token expired
+                    GlobalContext.logout();
+                    console.info("Access token already loaded, but expired. Refreshing...");
+                    try { await this.PerformRefreshAsync(); }
+                    catch { return false; }
+                    return true;
                 }
-            } catch { }
-            return result;
-        }
+                else if (currExpMs < Date.now() + minimumMilliseconds) { // token will expire soon
+                    console.info("Access token already loaded, but will expire soon. Refreshing...");
+                    try { await this.PerformRefreshAsync(); } catch { }
+                    return true;
+                }
+                else { // enough time remains
+                    console.info("Access token already loaded.");
+                    return true;
+                }
+            }
 
-        console.info("No access token found.");
-        return false;
+            // no current user, try to load from localstorage
+            console.info("Loading token from local storage...");
+            const jwt = GlobalContext.getAccessJwtFromStorage();
+            if (jwt && AuthHelper.ParseAccessJwtAndUpdateContext(jwt)) {
+                console.info("Calling EnsureUserInContext recursively...");
+                return await this.EnsureUserInContext();
+            } else if (jwt) {
+                console.info("Access token found, but validation failed. Refreshing...");
+                let result: boolean = false;
+                try {
+                    if (await AuthHelper.PerformRefreshAsync()) {
+                        result = true;
+                    }
+                } catch { }
+                return result;
+            }
+
+            console.info("No access token found.");
+            return false;
+        } catch {
+            return false;
+        } finally {
+            this.IsNowRefreshing = false;
+        }
     }
 
     // !reviewed 3 apr 2023

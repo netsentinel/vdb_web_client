@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from 'react';
 import cl from "./VdbSecurity.module.css";
 import clp from "../VdbPersonal/VdbPersonal.module.css";
 import cla from "../AuthForm/AuthForm.module.css"
@@ -26,11 +26,8 @@ const VdbSecurity: React.FC = () => {
     const [isPasswordType, setIsPasswordType] = useState(true);
     const navigate = useNavigate();
 
-    useEffect(function callback() {
+    useEffect(() => {
         setTransState(true);
-
-        new UserApiHelper()
-            .getUserSessions().then(r => setSessions(r));
 
         /* // ! Initially we let the browser there will be the password,
          * // ! after that, disable.
@@ -39,6 +36,10 @@ const VdbSecurity: React.FC = () => {
         setIsPasswordType(false);
     }, []);
 
+    useMemo(() => {
+        new UserApiHelper()
+            .getUserSessions().then(r => setSessions(r));
+    }, []);
 
     const terminateOthers = async () => {
         setTerminateButtonEnabled(false);
@@ -121,7 +122,7 @@ const VdbSecurity: React.FC = () => {
                     </span>
                     : <span />
                 }
-                
+
                 {
                     // ! Since non of the ways helped to disable unneeded 'save password' prompt here,
                     // ! this span is totaly disabled.

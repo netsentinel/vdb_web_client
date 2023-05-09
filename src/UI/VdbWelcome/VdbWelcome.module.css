@@ -95,12 +95,17 @@ currentStatusPhrase::first-line {
     opacity: 0;
 }
 
-.myLink {
+.myLink,
+.meLink {
     color: black;
     text-decoration: underline 1px solid black;
     font-weight: 400;
     font-size: inherit;
     overflow-wrap: break-word;
+}
+
+.meLink {
+    text-decoration: underline 1px solid red;
 }
 
 .outerText {

@@ -15,7 +15,7 @@ function App() {
   } else {
     axios.defaults.timeout = 5000;
   }
-  AuthHelper.EnsureUserInContext();
+  //AuthHelper.EnsureUserInContext();
 
   return (
     <span className={cl.wrapper}>

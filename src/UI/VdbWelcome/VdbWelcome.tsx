@@ -100,7 +100,7 @@ const VdbWelcome: React.FC = () => {
                 <span className={cl.aboutText}>
                     <p style={{ marginTop: ".75rem" }}>
                         Vdb (VPN Developed Badly) is a vpn-service originally developed by a single&nbsp;
-                        <a href="https://t.me/luminodiode" className={cl.myLink}>person</a> as a bachelor's degree coursework.
+                        <a href="https://t.me/luminodiode" className={cl.meLink}>person</a> as a bachelor's degree coursework.
                         However, it is truly operational - you can create account and then a tunnel to the one of our servers.
                         The service is using <b>ReactTS</b> as a front end, <b>ASP WebAPI</b> as a back end, <b>WPF</b> for a desktop app (electronJS is planned).
                         All the back-end services are containerized using <b>Docker</b> and launched with compose.

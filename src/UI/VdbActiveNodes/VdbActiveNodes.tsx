@@ -18,8 +18,17 @@ const VdbActiveNodes: React.FC = () => {
             if (!r) return;
 
             if (EnvHelper.isDebugMode() && (r!.length == 1)) {
-                r = [...r, ...r, ...r, ...r, ...r];
+                r = [
+                    ...r,
+                    ...JSON.parse(JSON.stringify(r)),
+                    ...JSON.parse(JSON.stringify(r)),
+                    ...JSON.parse(JSON.stringify(r)),
+                    ...JSON.parse(JSON.stringify(r))
+                ];
                 r[0].isActive = true;
+                r[0].clientsConnected = 150;
+                r[3].isActive = true;
+                r[3].clientsConnected = 1;
             }
 
             setNodes(r);

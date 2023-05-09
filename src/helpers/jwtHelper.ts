@@ -25,7 +25,9 @@ export default class JwtHelper {
     // !reviewed 3 apr 2023
     public static ValidateLifetime = (decodedJwt: IJwtInfo) => {
         let exp = new Date(decodedJwt.exp * 1000);
-        let nbf = new Date(decodedJwt.nbf * 1000);
+        // sometimes server responds so fast that nbf is binded for the next second
+        // and fails this validation, so we give it a 1 second space
+        let nbf = new Date((decodedJwt.nbf-1) * 1000);
         let now = new Date(Date.now());
         console.info(`Validating token lifetime:\nexp= ${exp},\nnbf= ${nbf},\nnow= ${now}.`);
 

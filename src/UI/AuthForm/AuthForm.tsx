@@ -22,16 +22,15 @@ const AuthForm: React.FC = () => {
     useEffect(() => {
         setTransState(true);
     }, []);
-    // useMemo(()=>{
-    //     if (GlobalContext.currentUser !== undefined &&
-    //         (!EnvHelper.isDebugMode() || EnvHelper.isProduction())) {
-    //         navigate("/personal");
-    //     }
-    // },[]);
 
-    const delay = (delayMs: number) => {
-        return new Promise(resolve => setTimeout(resolve, delayMs));
-    }
+    useMemo(() => {
+        AuthHelper.EnsureUserInContext().then(r => {
+            if (r && GlobalContext.currentUser !== undefined) {
+                navigate("/personal");
+            }
+        });
+    }, []);
+
     const onSubmit = async () => {
         if (EnvHelper.isDebugMode())
             setErrorMessage("Test erorr message");
@@ -100,7 +99,6 @@ const AuthForm: React.FC = () => {
             window.location.replace("/personal");
             return;
         }
-
         setSubmitEnabled(true);
     }
 

@@ -14,36 +14,30 @@ import IUserInfoFromJwt from '../../models/Auth/IUserInfoFromJwt';
 import ApiHelper from '../../helpers/ApiHelper';
 
 const VdbPersonal: React.FC = () => {
-    const navigate = useNavigate();
-    if (GlobalContext.currentUser == undefined &&
-        (!EnvHelper.isDebugMode() || EnvHelper.isProduction())) {
-        navigate("/auth");
-    }
-
-    const [deviceLimits, setDeviceLimit] = useState(0);
-    useMemo(() => {
-        console.info("Using memo in personal block...");
-        var helper = new UserApiHelper();
-        const GetAccessLevel = (user: IUserInfoFromJwt) => {
-            if (user.IsAdmin === true) return 3;
-            if (Date.parse(user.PayedUntilUtc) > Date.now()) return 2;
-            if (user.IsEmailConfirmed === true) return 1;
-
-            return 0;
-        }
-        ApiHelper.getDevicesLimits().then(r => {
-            console.log(`Loaded user access level is \'${GetAccessLevel(GlobalContext.currentUser!)}\'.`);
-            var limit = r?.filter(x => x.accessLevel == GetAccessLevel(GlobalContext.currentUser!))[0].devicesLimit;
-            if (limit !== undefined) setDeviceLimit(limit);
-        });
-    }, []);
-
     const [transState, setTransState] = useState(false);
-    useEffect(() => {
-        setTimeout(() => setTransState(true), 0);
+    const [user, setUser] = useState<string | undefined>(undefined);
+    const [limit, setLimit] = useState(0);
+    const navigate = useNavigate();
+
+    useMemo(async () => {
+        await AuthHelper.EnsureUserInContext();
+        if (GlobalContext.currentUser === undefined && (!EnvHelper.isDebugMode() || EnvHelper.isProduction())) {
+            navigate("/auth");
+            return;
+        }
+
+        ApiHelper.getDevicesLimits().then(r => {
+            var limit = r?.filter(x => x.accessLevel === GlobalContext.GetAccessLevel())[0].devicesLimit;
+            if (limit !== undefined) setLimit(limit);
+        });
+
+        setUser(GlobalContext.currentUser!.Email);
+
+        setTransState(true)
     }, []);
 
     const logout = async () => {
+        console.log("Log out required...");
         await new UserApiHelper().terminateThisSession();
         GlobalContext.logout();
         navigate("/");
@@ -67,13 +61,13 @@ const VdbPersonal: React.FC = () => {
             <span className={cl.personalWrapper}>
                 <span className={cl.loggedAs}>
                     You are logged in as: <span className={cl.loggedAsEmail}>
-                        {GlobalContext.currentUser?.Email ?? "unknown"}
+                        {user ?? "unknown"}
                     </span>
                     <button className={cl.logoutBtn} onClick={logout}>
                         LOG OUT
                     </button>
                 </span>
-                <span className={cl.loggedAs}>Devices limit: <span style={{fontWeight:"500"}}>{deviceLimits}</span></span>
+                <span className={cl.loggedAs}>Devices limit: <span style={{ fontWeight: "500" }}>{limit}</span></span>
 
                 <span className={cl.personalText}>
                     Security:
