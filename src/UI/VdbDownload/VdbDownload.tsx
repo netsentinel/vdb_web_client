@@ -8,16 +8,21 @@ import { CSSTransition } from 'react-transition-group';
 const VdbDownload: React.FC = () => {
     const [transState, setTransState] = useState(false);
     const [releaseTransState, setReleaseTransState] = useState(false);
+    const [wgTransState, setWgTransState] = useState(false);
     const [dotnetTransState, setDotnetTransState] = useState(false);
     useEffect(() => {
         setTimeout(() => setTransState(true), 0);
         setTimeout(() => setReleaseTransState(true), 200);
+        setTimeout(() => setWgTransState(true), 300);
         setTimeout(() => setDotnetTransState(true), 400);
     }, []);
 
 
     const downloadClient = () => {
         window.open(hrefs.latestDesktopClient, '_blank', 'noreferrer')
+    }
+    const downloadWg = () => {
+        window.open(hrefs.wireguard, '_blank', 'noreferrer')
     }
     const downloadDotnet = () => {
         window.open(hrefs.dotnetDesktopRuntime, '_blank', 'noreferrer')
@@ -44,6 +49,11 @@ const VdbDownload: React.FC = () => {
                 <CSSTransition in={releaseTransState} {...commonTransProp}>
                     <button onClick={downloadClient} className={cl.goToReleaseButton}>
                         DOWNLOAD LATEST RELEASE
+                    </button>
+                </CSSTransition>
+                <CSSTransition in={wgTransState} {...commonTransProp}>
+                    <button onClick={downloadWg} className={cl.goToReleaseButton}>
+                        DOWNLOAD WIREGUARD
                     </button>
                 </CSSTransition>
                 <CSSTransition in={dotnetTransState} {...commonTransProp}>
