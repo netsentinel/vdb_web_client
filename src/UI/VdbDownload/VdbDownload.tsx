@@ -44,7 +44,8 @@ const VdbDownload: React.FC = () => {
             <span className={cl.downloadWrapper}>
                 <span className={cl.textSpan}>
                     We are currently providing only windows x64 application
-                    with .NET8 runtime required.
+                    with .NET8 runtime and wireguard required. The combined
+                    NSIS installer is coming soon.
                 </span>
                 <CSSTransition in={releaseTransState} {...commonTransProp}>
                     <button onClick={downloadClient} className={cl.goToReleaseButton}>
