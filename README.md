@@ -14,6 +14,6 @@
 </p>
 <p align="center" style="border:solid black">
   <kbd>
-    <img src="https://i.imgur.com/9dLXIXu.png"/>
+    <img src="https://i.imgur.com/zmabsiR.png"/>
   </kbd>
 </p>
