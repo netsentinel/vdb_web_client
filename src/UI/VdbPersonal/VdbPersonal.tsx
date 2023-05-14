@@ -20,10 +20,17 @@ const VdbPersonal: React.FC = () => {
     const navigate = useNavigate();
 
     useMemo(async () => {
-        await AuthHelper.EnsureUserInContext();
-        if (GlobalContext.currentUser === undefined && (!EnvHelper.isDebugMode() || EnvHelper.isProduction())) {
+        try {
+            await AuthHelper.EnsureUserInContext();
+        } catch {
+            console.info("Redirecting to auth because error occured during user loading.");
             navigate("/auth");
-            return;
+        } finally {
+            if (GlobalContext.currentUser === undefined && (!EnvHelper.isDebugMode() || EnvHelper.isProduction())) {
+                console.info("Redirecting to auth because no user available.");
+                navigate("/auth");
+                return;
+            }
         }
 
         ApiHelper.getDevicesLimits().then(r => {

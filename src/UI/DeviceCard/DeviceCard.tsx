@@ -2,13 +2,9 @@ import { useState } from "react";
 import cl from "./DeviceCard.module.css";
 import UserApiHelper from "src/helpers/UserApiHelper";
 import IUserDevice from '../../models/Device/IUserDevice';
-import { getJSDocReturnType } from "typescript";
-
 
 const DeviceCard: React.FC<IUserDevice> = (props) => {
     const [isButtonDisabled, setButtonDisabled] = useState(false);
-    const [isMainHidden, setMainHidden] = useState(false);
-    const [isButtonHidden, setButtonHidden] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
     const [commonMsg, setCommonMsg] = useState("");
 
@@ -26,7 +22,6 @@ const DeviceCard: React.FC<IUserDevice> = (props) => {
         if (deleted) {
             console.info("Device was deleted.");
             setCommonMsg("Removed successfully.");
-            setButtonHidden(true);
             return;
         } else {
             console.info("Unable to remove device.");
@@ -34,15 +29,11 @@ const DeviceCard: React.FC<IUserDevice> = (props) => {
         }
 
         console.log("Enabling remove button...");
-        setInterval(() => setButtonDisabled(false), 5000);
-    }
-
-    if (isMainHidden) {
-        return (<span />);
+        setTimeout(() => setButtonDisabled(false), 5000);
     }
 
     return (
-        <span className={[cl.cardWrapper].join(' ')} key={props.id}>
+        <span className={[cl.cardWrapper].join(' ')} key={id}>
             <span className={cl.col}>
                 <span className={cl.pkSpan}>
                     <strong>Key:</strong>&nbsp;{pk ?? "unknown"}

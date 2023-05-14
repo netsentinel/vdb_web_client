@@ -13,11 +13,10 @@ const VdbMain: React.FC = () => {
     return (
         <Routes>
             <Route path="/" element={<VdbWelcome />} />
-
             <Route path="/download" element={<VdbDownload />} />
-
             <Route path="/auth" element={<AuthForm />} />
             <Route path="/personal" element={<VdbPersonal />} />
+            <Route element={<VdbWelcome />} />
         </Routes>
     );
 }
