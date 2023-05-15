@@ -12,6 +12,7 @@
     font-size: 3rem;
 }
 
+.goToVTButton,
 .goToReleaseButton {
     display: inherit;
     padding: .1rem 1rem;
@@ -26,8 +27,14 @@
     /*initial*/
 }
 
+.goToVTButton,
 .goToReleaseButton:hover {
     cursor: pointer;
+}
+
+.goToVTButton{
+    font-size: 1.5rem;
+    padding: .1rem .5rem;
 }
 
 .welcomeTransitionEnter {
@@ -48,5 +55,9 @@
 
     .goToReleaseButton {
         font-size: calc(1.75 * 2rem);
+    }
+
+    .goToVTButton {
+        font-size: calc(1.75 * 1.5rem);
     }
 }

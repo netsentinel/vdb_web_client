@@ -9,23 +9,20 @@ const VdbDownload: React.FC = () => {
     const [transState, setTransState] = useState(false);
     const [releaseTransState, setReleaseTransState] = useState(false);
     const [wgTransState, setWgTransState] = useState(false);
-    const [dotnetTransState, setDotnetTransState] = useState(false);
+    //const [dotnetTransState, setDotnetTransState] = useState(false);
     useEffect(() => {
         setTimeout(() => setTransState(true), 0);
         setTimeout(() => setReleaseTransState(true), 200);
         setTimeout(() => setWgTransState(true), 300);
-        setTimeout(() => setDotnetTransState(true), 400);
+        //setTimeout(() => setDotnetTransState(true), 400);
     }, []);
 
 
     const downloadClient = () => {
-        window.open(hrefs.latestDesktopClient, '_blank', 'noreferrer')
+        window.open(hrefs.installer, '_blank', 'noreferrer')
     }
-    const downloadWg = () => {
-        window.open(hrefs.wireguard, '_blank', 'noreferrer')
-    }
-    const downloadDotnet = () => {
-        window.open(hrefs.dotnetDesktopRuntime, '_blank', 'noreferrer')
+    const goToVirusTotal = () => {
+        window.open(hrefs.virusTotal, '_blank', 'noreferrer')
     }
 
     const transitionClasses = {
@@ -49,17 +46,12 @@ const VdbDownload: React.FC = () => {
                 </span>
                 <CSSTransition in={releaseTransState} {...commonTransProp}>
                     <button onClick={downloadClient} className={cl.goToReleaseButton}>
-                        DOWNLOAD LATEST RELEASE
+                        DOWNLOAD INSTALLER
                     </button>
                 </CSSTransition>
                 <CSSTransition in={wgTransState} {...commonTransProp}>
-                    <button onClick={downloadWg} className={cl.goToReleaseButton}>
-                        DOWNLOAD WIREGUARD
-                    </button>
-                </CSSTransition>
-                <CSSTransition in={dotnetTransState} {...commonTransProp}>
-                    <button onClick={downloadDotnet} className={cl.goToReleaseButton}>
-                        DOWNLOAD .NET8
+                    <button onClick={goToVirusTotal} className={cl.goToReleaseButton}>
+                        VirusTotal
                     </button>
                 </CSSTransition>
             </span>

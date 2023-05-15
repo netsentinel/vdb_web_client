@@ -1,5 +1,4 @@
 {
-    "dotnetDesktopRuntime": "https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.0-preview.3-windows-x64-installer",
-    "latestDesktopClient": "https://github.com/LuminoDiode/vdb_desktop_client/releases/download/v1.0.0/VdbVPN.exe",
-    "wireguard": "https://download.wireguard.com/windows-client/wireguard-installer.exe"
+    "installer": "https://github.com/LuminoDiode/vdb_desktop_client/releases/download/v1.0.0/VdbInstaller.exe",
+    "virusTotal": "https://www.virustotal.com/gui/url/39b7f30f37634d29ed6dc18861692089235e52148adb91e8785013c4f4fc30cd"
 }
