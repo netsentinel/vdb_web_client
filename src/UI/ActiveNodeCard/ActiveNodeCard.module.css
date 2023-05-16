@@ -40,14 +40,23 @@
 }
 
 .cardActive,
-.cardInactive {
+.cardInactive,
+.cardDescr {
     display: inherit;
-    padding: .9rem;
+    width: 100%;
+    flex-direction: column;
+    padding: .5rem;
     justify-content: inherit;
     border: 0;
     border-radius: 0;
-
+    text-align: center;
     background-color: black;
+}
+
+.cardDescr{
+    padding-top: 0;
+    display: inherit;
+    font-size: 1.25rem;
 }
 
 .nodeName {
@@ -69,5 +78,8 @@
 @media screen and (max-aspect-ratio: 0.6/1) {
     .cardWrapper {
         font-size: calc(2.25 * 1.75rem);
+    }
+    .cardDescr{
+        font-size: calc(2.25 *1.25rem);
     }
 }
