@@ -34,6 +34,7 @@ const VdbPersonal: React.FC = () => {
         }
 
         ApiHelper.getDevicesLimits().then(r => {
+            console.info(`Current access level: ${GlobalContext.GetAccessLevel()}`);
             var limit = r?.filter(x => x.accessLevel === GlobalContext.GetAccessLevel())[0].devicesLimit;
             if (limit !== undefined) setLimit(limit);
         });

@@ -33,10 +33,28 @@ export default class GlobalContext {
         if(this.currentUser === undefined) return undefined;
         let user = this.currentUser;
 
-        if (user.IsAdmin === true) return 3;
-        if (Date.parse(user.PayedUntilUtc) > Date.now()) return 2;
-        if (user.IsEmailConfirmed === true) return 1;
+        console.info("Calculating user access level...");
 
+        if (user.IsAdmin === true) { 
+            console.log("User is admin. Level 3.");
+            return 3;
+        } else{
+            console.log("User is not admin. Decreasing...");
+        }
+        if (Date.parse(user.PayedUntilUtc) > Date.now()){ 
+            console.log("User has subscription. Level 2.");
+            return 2;
+        } else{
+            console.log("User  hasn't subscription. Decreasing...");
+        }
+        if (user.IsEmailConfirmed === true){
+            console.log("User email is confirmed. Level 1.");
+            return 1;
+        } else{
+            console.log("User email isn't confirmed. Decreasing...");
+        }
+
+        console.log("None of the conditions met. Level 0.")
         return 0;
     };
 
