@@ -10,10 +10,11 @@ function App() {
   console.info(`Is debug mode: ${EnvHelper.isDebugMode()}`);
 
   axios.defaults.withCredentials = true;
+  axios.defaults.validateStatus = () => true;
   if (EnvHelper.isDebugMode()) {
     axios.defaults.timeout = 360 * 1000;
   } else {
-    axios.defaults.timeout = 5000;
+    axios.defaults.timeout = 10000;
   }
   //AuthHelper.EnsureUserInContext();
 

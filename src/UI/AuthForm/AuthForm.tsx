@@ -10,6 +10,7 @@ import AuthHelper from '../../helpers/AuthHelper';
 import authSettings from "../../config/authSettings.json"
 import RegistrationRequest from '../../models/Auth/RegistrationRequest';
 import ValidationHelper from '../../helpers/ValidationHelper';
+import eps from '../../config/endpoints.json';
 
 const AuthForm: React.FC = () => {
     const navigate = useNavigate();
@@ -135,6 +136,9 @@ const AuthForm: React.FC = () => {
                     placeholder="Password"
                     value={password} onChange={(e) => setPassword(e.target.value)}
                     className={cl.credentialsInput} />
+                <a className={cl.forgotPass} onClick={() => {navigate("/forgot-password")}} style={{cursor:"pointer"}}>
+                    <span>I forgot it!</span>
+                </a>
                 <button
                     type="submit"
                     onClick={onSubmit}

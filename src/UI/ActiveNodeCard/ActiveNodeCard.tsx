@@ -20,7 +20,8 @@ const ActiveNodeCard: React.FC<IPublicNodeInfo> = (props) => {
     if (shortenName === "ams") locationName = LocationNames.Ams; else
         if (shortenName === "frk") locationName = LocationNames.Frk; else
             if (shortenName === "hkg") locationName = LocationNames.Hkg; else
-                locationName = "";
+                if (shortenName === "stm") locationName = LocationNames.Stm; else
+                    locationName = shortenName;
 
     if (EnvHelper.isDebugMode()) {
         console.log(`${shortenName} expanded to ${locationName}`);

@@ -6,13 +6,14 @@ import DeleteDeviceRequest from '../models/Device/DeleteDeviceRequest';
 import AuthHelper from './AuthHelper';
 import { IPublicNodeInfo } from "src/models/Connection/PublicNodeInfo";
 import { IAccessLevelToDevicesLimit } from "src/models/Device/AccessLevelToDevicesLimit";
+import { ChangePasswordRequest } from '../models/Auth/ChangePasswordRequest';
 
 export default class ApiHelper {
     private static _lastStatus?: number;
     public static get lastStatus(): number | undefined {
         return this._lastStatus;
     }
-
+    public static GetLastStatus = ()=>this._lastStatus;
 
 
     public static getNodesList = async () => {
@@ -54,5 +55,46 @@ export default class ApiHelper {
         }
 
         return response.data;
+    }
+
+    public static resetPassword = async (email: string) => {
+        try {
+            var response = await axios.put(UrlHelper.getResetPasswordUrl(email));
+        } catch (e: any) {
+            console.error("Failed to reset password.");
+            if (e["response"]["status"]) {
+                this._lastStatus = e["response"]["status"];
+            }
+            return undefined;
+        }
+
+        if (response.status) {
+            if (response.status !== 200)
+                console.error(`Failed to reset password: HTTP_${response.status}.`);
+            this._lastStatus = response.status;
+            return undefined;
+        }
+
+        return undefined;
+    }
+    public static resetNewPassword = async (jwt: string, request: ChangePasswordRequest) => {
+        try {
+            var response = await axios.post(UrlHelper.getResetNewPasswordUrl(jwt), request);
+        } catch (e: any) {
+            console.error("Failed to reset password.");
+            if (e["response"]["status"]) {
+                this._lastStatus = e["response"]["status"];
+            }
+            return undefined;
+        }
+
+        if (response.status) {
+            if (response.status !== 200)
+                console.error(`Failed to reset password: HTTP_${response.status}.`);
+            this._lastStatus = response.status;
+            return undefined;
+        }
+
+        return undefined;
     }
 }

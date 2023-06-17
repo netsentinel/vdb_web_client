@@ -4,6 +4,7 @@ import GlobalContext from '../../helpers/GlobalContext';
 import hrefs from "../../config/hrefsList.json";
 import { useState, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import fixs from "../AuthForm/AuthForm.module.css";
 
 const VdbDownload: React.FC = () => {
     const [transState, setTransState] = useState(false);
@@ -53,6 +54,7 @@ const VdbDownload: React.FC = () => {
                         VirusTotal
                     </button>
                 </CSSTransition>
+                {/* <span className={fixs.authHeader} style={{opacity:"0%"}}>this el is fixing layout!</span> */}
             </span>
         </CSSTransition>
     );

@@ -1,7 +1,9 @@
 .downloadWrapper {
     display: flex;
     margin: 1rem;
+    width: 100%;
     flex-direction: column;
+    margin-top: 2rem;
     opacity: 0;
     /*initial*/
 }

@@ -7,6 +7,10 @@ import VdbWelcome from '../VdbWelcome/VdbWelcome';
 import AuthForm from "../AuthForm/AuthForm";
 import VdbDownload from '../VdbDownload/VdbDownload';
 import VdbPersonal from '../VdbPersonal/VdbPersonal';
+import NotFound from "../NotFound/NotFound";
+import eps from '../../config/endpoints.json'
+import RecoveryPassword from "../RecoveryPassword/RecoveryPassword";
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
 
 const VdbMain: React.FC = () => {
 
@@ -16,7 +20,9 @@ const VdbMain: React.FC = () => {
             <Route path="/download" element={<VdbDownload />} />
             <Route path="/auth" element={<AuthForm />} />
             <Route path="/personal" element={<VdbPersonal />} />
-            <Route element={<VdbWelcome />} />
+            <Route path="/forgot-password" element={<ForgotPassword/>}/>
+            <Route path={eps.fontend.passwordRecovery+"/*"} element={<RecoveryPassword/>} />
+            <Route path="/*" element={<NotFound/>} />
         </Routes>
     );
 }

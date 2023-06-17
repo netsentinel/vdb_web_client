@@ -6,5 +6,8 @@
         "connectionControllerPath": "/connection",
         "debugControllerPath": "/debug",
         "deviceControllerPath": "/device"
+    },
+    "fontend": {
+        "passwordRecovery":"/recovery-password"
     }
 }

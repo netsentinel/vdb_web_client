@@ -47,4 +47,13 @@ export default class UrlHelper {
     public static getDevicesLimitsUrl = () => urlJoin(
         this.getDeviceUrl(),
         "/user-devices-limits");
+    public static getResetPasswordUrl = (email: string) => urlJoin(
+        this.getAuthUrl(),
+        "recovery",
+        email);
+    public static getResetNewPasswordUrl = (jwt: string) => urlJoin(
+            this.getAuthUrl(),
+            "recovery",
+            jwt
+        )
 }

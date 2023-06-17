@@ -28,6 +28,12 @@
     align-self: center;
 }
 
+.forgotPass {
+    font-size: 1.33rem;
+    display: flex;
+    align-self: flex-end;
+}
+
 .credentialsInput {
     width: 100%;
     display: inherit;
@@ -100,4 +106,9 @@
     .authSubmit {
         font-size: calc(3 * 2rem);
     }
+
+    .forgotPass {
+        font-size: calc(3 * 1.33rem);
+    }
+
 }
