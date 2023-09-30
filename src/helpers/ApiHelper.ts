@@ -35,6 +35,25 @@ export default class ApiHelper {
 
         return response.data;
     }
+    public static getLatestReleaseUrl = async () => {
+        try {
+            var response = await axios.get<string>(UrlHelper.getLatestReleaseUrl());
+        } catch (e: any) {
+            console.error("Failed to load latest release link.");
+            if (e["response"]["status"]) {
+                this._lastStatus = e["response"]["status"];
+            }
+            return undefined;
+        }
+
+        if (response.status !== 200) {
+            console.error(`Failed to load latest release link: HTTP_${response.status}.`);
+            this._lastStatus = response.status;
+            return undefined;
+        }
+
+        return response.data;
+    }
 
 
     public static getDevicesLimits = async () => {

@@ -32,6 +32,10 @@ export default class UrlHelper {
         this.getApiBaseUrl(),
         endpoints.backend.deviceControllerPath);
 
+    public static getLinksUrl = () => urlJoin(
+        this.getApiBaseUrl(),
+        endpoints.backend.linksControllerPath);
+
     public static getNodesUrl = () => urlJoin(
         this.getConnectionUrl(),
         "/nodes-list");
@@ -47,6 +51,9 @@ export default class UrlHelper {
     public static getDevicesLimitsUrl = () => urlJoin(
         this.getDeviceUrl(),
         "/user-devices-limits");
+    public static getLatestReleaseUrl = () => urlJoin(
+        this.getLinksUrl(),
+        "/latest-release");
     public static getResetPasswordUrl = (email: string) => urlJoin(
         this.getAuthUrl(),
         "recovery",

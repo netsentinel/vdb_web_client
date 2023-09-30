@@ -20,7 +20,7 @@ const VdbDownload: React.FC = () => {
 
 
     const downloadClient = () => {
-        window.open(hrefs.installer, '_blank', 'noreferrer')
+        window.open(GlobalContext.latestVersionHref ?? hrefs.installer, '_blank', 'noreferrer')
     }
     const goToVirusTotal = () => {
         window.open(hrefs.virusTotal, '_blank', 'noreferrer')

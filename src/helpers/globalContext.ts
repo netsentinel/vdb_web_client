@@ -78,4 +78,5 @@ export default class GlobalContext {
         this.lastLoadedAccessJwt = this.refreshJwtExpires = null;
     }
 
+    public static latestVersionHref: string;
 }
