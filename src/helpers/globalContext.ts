@@ -66,7 +66,7 @@ export default class GlobalContext {
     public static getRefreshExpFromStorage = () => {
         let value = localStorage.getItem(this.accessTokenExpDateName);
         return value ? parseInt(value) : undefined;
-    }
+    }   
 
     public static logout = () => {
         console.info("Logging out: removing user info...")
@@ -78,5 +78,5 @@ export default class GlobalContext {
         this.lastLoadedAccessJwt = this.refreshJwtExpires = null;
     }
 
-    public static latestVersionHref: string;
+    public static latestVersionHref: string | undefined;
 }

@@ -52,6 +52,9 @@ export default class ApiHelper {
             return undefined;
         }
 
+        //console.log("Received latest release url from server");
+        //console.log(response.data);
+
         return response.data;
     }
 
