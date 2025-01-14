@@ -6,7 +6,6 @@
 
 ## Vdb Web Client
 ### A simple UI for interaction with [vdb_main_server](https://github.com/LuminoDiode/vdb_main_server) sever.
-### Currently hosted on VPS: [vdb.lowskill.dev](https://vdb.lowskill.dev/).
 <p align="center" style="border:solid black">
   <kbd>
     <img src="https://i.imgur.com/SlVBsGc.png"/>
